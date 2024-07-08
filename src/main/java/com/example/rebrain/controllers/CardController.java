@@ -1,42 +1,68 @@
 package com.example.rebrain.controllers;
 
-
-import com.example.rebrain.models.Card;
+import com.example.rebrain.exception.CardNotFoundException;
+import com.example.rebrain.model.UpdateCard;
+import lombok.AllArgsConstructor;
+import com.example.rebrain.entity.CardEntity;
 import com.example.rebrain.services.CardService;
-import lombok.RequiredArgsConstructor;
-import org.springframework.stereotype.Controller;
-import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.*;
 
-@Controller
-@RequiredArgsConstructor
+import java.util.List;
+@RestController
+@RequestMapping("/cards")
+@AllArgsConstructor
 public class CardController {
-    private final CardService cardService;
+    
+    @Autowired
+    private CardService cardService;
 
-    @GetMapping("/")
-    public String cards(@RequestParam(name = "title", required = false) String title, Model model) {
-        model.addAttribute("cards", cardService.listCards(title));
-        return "cards";
+    @PostMapping
+    public ResponseEntity createCard(@RequestBody CardEntity card) {
+        try {
+            return ResponseEntity.ok(cardService.create(card));
+        } catch (Exception e) {
+            return ResponseEntity.badRequest().body("Произошла ошибка");
+        }
     }
 
-    @GetMapping("/card/{id}")
-    public String cardInfo(@PathVariable Integer id, Model model) {
-        model.addAttribute("card", cardService.getCardById(id));
-        return "card-info";
+    @GetMapping
+    public ResponseEntity getAll() {
+        try {
+            return ResponseEntity.ok(cardService.getAll());
+        }catch (Exception e) {
+            return ResponseEntity.badRequest().body("Произошла ошибка");
+        }
+    }
+    @GetMapping("/{id}")
+    public ResponseEntity getOneCard(@PathVariable Integer id) {
+        try {
+            return ResponseEntity.ok(cardService.getOne(id));
+        } catch (CardNotFoundException e) {
+            return ResponseEntity.badRequest().body(e.getMessage());
+        } catch (Exception e) {
+            return ResponseEntity.badRequest().body("Произошла ошибка");
+        }
     }
 
-    @PostMapping("/card/create")
-    public String createCard(Card card) {
-        cardService.saveCard(card);
-        return "redirect:/";
+    @PatchMapping("/{id}")
+    public ResponseEntity updateCard(@PathVariable Integer id, @RequestBody UpdateCard updateCardDto) {
+        try {
+            return ResponseEntity.ok(cardService.update(id, updateCardDto));
+        } catch (CardNotFoundException e) {
+            return ResponseEntity.badRequest().body(e.getMessage());
+        } catch (Exception e) {
+            return ResponseEntity.badRequest().body("Произошла ошибка");
+        }
     }
 
-    @PostMapping("/card/delete/{id}")
-    public String deleteCard(@PathVariable Integer id) {
-        cardService.deleteCard(id);
-        return "redirect:/";
+    @DeleteMapping("/{id}")
+    public ResponseEntity deleteCard(@PathVariable Integer id) {
+        try {
+            return ResponseEntity.ok(cardService.delete(id));
+        } catch (Exception e) {
+            return ResponseEntity.badRequest().body("Произошла ошибка");
+        }
     }
 }
