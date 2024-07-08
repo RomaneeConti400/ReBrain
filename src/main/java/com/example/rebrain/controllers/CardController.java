@@ -5,7 +5,6 @@ import com.example.rebrain.Dto.UpdateCardDto;
 import lombok.AllArgsConstructor;
 import com.example.rebrain.entity.CardEntity;
 import com.example.rebrain.services.CardService;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -16,9 +15,8 @@ import java.net.URI;
 @RequestMapping("/cards")
 @AllArgsConstructor
 public class CardController {
-    
-    @Autowired
-    private CardService cardService;
+
+    private final CardService cardService;
 
     @PostMapping
     public ResponseEntity createCard(@RequestBody CardEntity card) {
@@ -35,10 +33,11 @@ public class CardController {
     public ResponseEntity getAll() {
         try {
             return ResponseEntity.ok(cardService.getAll());
-        }catch (Exception e) {
+        } catch (Exception e) {
             return ResponseEntity.badRequest().body("Произошла ошибка");
         }
     }
+
     @GetMapping("/{id}")
     public ResponseEntity getOneCard(@PathVariable Integer id) {
         try {
