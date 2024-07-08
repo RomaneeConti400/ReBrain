@@ -1,9 +1,9 @@
-package com.example.rebrain.model;
+package com.example.rebrain.Dto;
 
 import lombok.Data;
 
 @Data
-public class UpdateCard {
+public class UpdateCardDto {
     private String title;
     private String descr;
 }

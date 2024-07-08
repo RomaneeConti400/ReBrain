@@ -2,9 +2,9 @@ package com.example.rebrain.services;
 
 import com.example.rebrain.exception.SetNotFoundException;
 import com.example.rebrain.entity.SetEntity;
-import com.example.rebrain.model.UpdateSet;
+import com.example.rebrain.Dto.UpdateSetDto;
 import com.example.rebrain.repositories.SetRepo;
-import com.example.rebrain.model.Set;
+import com.example.rebrain.Dto.SetDto;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -38,7 +38,7 @@ public class SetService {
         }
     }
 
-    public Set update(Integer id, UpdateSet updateSet) throws SetNotFoundException {
+    public SetDto update(Integer id, UpdateSetDto updateSet) throws SetNotFoundException {
         SetEntity set = getOne(id);
 
         if (updateSet.getTitle() != null) {
@@ -50,7 +50,7 @@ public class SetService {
         }
 
         SetEntity savedSet = setRepo.save(set);
-        return Set.toModel(savedSet);
+        return SetDto.toModel(savedSet);
     }
 
     public Integer delete(Integer id) throws SetNotFoundException {

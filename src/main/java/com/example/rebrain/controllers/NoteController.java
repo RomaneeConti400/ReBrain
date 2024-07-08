@@ -1,9 +1,7 @@
 package com.example.rebrain.controllers;
 
-import com.example.rebrain.entity.SetEntity;
 import com.example.rebrain.exception.NoteNotFoundException;
-import com.example.rebrain.exception.SetNotFoundException;
-import com.example.rebrain.model.UpdateNote;
+import com.example.rebrain.Dto.UpdateNoteDto;
 import lombok.AllArgsConstructor;
 import com.example.rebrain.entity.NoteEntity;
 import com.example.rebrain.services.NoteService;
@@ -13,7 +11,6 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.net.URI;
-import java.util.List;
 
 @RestController
 @RequestMapping("/notes")
@@ -55,7 +52,7 @@ public class NoteController {
     }
 
     @PatchMapping("/{id}")
-    public ResponseEntity updateNote(@PathVariable Integer id, @RequestBody UpdateNote updateNoteDto) {
+    public ResponseEntity updateNote(@PathVariable Integer id, @RequestBody UpdateNoteDto updateNoteDto) {
         try {
             return ResponseEntity.ok(noteService.update(id, updateNoteDto));
         } catch (NoteNotFoundException e) {

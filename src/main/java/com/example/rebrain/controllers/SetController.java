@@ -1,7 +1,7 @@
 package com.example.rebrain.controllers;
 
 import com.example.rebrain.exception.SetNotFoundException;
-import com.example.rebrain.model.UpdateSet;
+import com.example.rebrain.Dto.UpdateSetDto;
 import lombok.AllArgsConstructor;
 import com.example.rebrain.entity.SetEntity;
 import com.example.rebrain.services.SetService;
@@ -11,7 +11,6 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.net.URI;
-import java.util.List;
 
 @RestController
 @RequestMapping("/sets")
@@ -53,7 +52,7 @@ public class SetController {
     }
 
     @PatchMapping("/{id}")
-    public ResponseEntity updateSet(@PathVariable Integer id, @RequestBody UpdateSet updateSetDto) {
+    public ResponseEntity updateSet(@PathVariable Integer id, @RequestBody UpdateSetDto updateSetDto) {
         try {
             return ResponseEntity.ok(setService.update(id, updateSetDto));
         } catch (SetNotFoundException e) {

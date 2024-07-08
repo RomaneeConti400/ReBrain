@@ -2,9 +2,9 @@ package com.example.rebrain.services;
 
 import com.example.rebrain.exception.CardNotFoundException;
 import com.example.rebrain.entity.CardEntity;
-import com.example.rebrain.model.UpdateCard;
+import com.example.rebrain.Dto.UpdateCardDto;
 import com.example.rebrain.repositories.CardRepo;
-import com.example.rebrain.model.Card;
+import com.example.rebrain.Dto.CardDto;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -38,7 +38,7 @@ public class CardService {
         }
     }
 
-    public Card update(Integer id, UpdateCard updateCard) throws CardNotFoundException {
+    public CardDto update(Integer id, UpdateCardDto updateCard) throws CardNotFoundException {
         CardEntity card = getOne(id);
 
         if (updateCard.getTitle() != null) {
@@ -50,7 +50,7 @@ public class CardService {
         }
 
         CardEntity savedCard = cardRepo.save(card);
-        return Card.toModel(savedCard);
+        return CardDto.toModel(savedCard);
     }
 
     public Integer delete(Integer id) throws CardNotFoundException {

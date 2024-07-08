@@ -1,9 +1,7 @@
 package com.example.rebrain.controllers;
 
-import com.example.rebrain.entity.SetEntity;
 import com.example.rebrain.exception.CardNotFoundException;
-import com.example.rebrain.exception.NoteNotFoundException;
-import com.example.rebrain.model.UpdateCard;
+import com.example.rebrain.Dto.UpdateCardDto;
 import lombok.AllArgsConstructor;
 import com.example.rebrain.entity.CardEntity;
 import com.example.rebrain.services.CardService;
@@ -13,7 +11,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.net.URI;
-import java.util.List;
+
 @RestController
 @RequestMapping("/cards")
 @AllArgsConstructor
@@ -53,7 +51,7 @@ public class CardController {
     }
 
     @PatchMapping("/{id}")
-    public ResponseEntity updateCard(@PathVariable Integer id, @RequestBody UpdateCard updateCardDto) {
+    public ResponseEntity updateCard(@PathVariable Integer id, @RequestBody UpdateCardDto updateCardDto) {
         try {
             return ResponseEntity.ok(cardService.update(id, updateCardDto));
         } catch (CardNotFoundException e) {
