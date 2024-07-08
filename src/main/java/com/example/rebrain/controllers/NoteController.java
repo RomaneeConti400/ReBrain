@@ -1,14 +1,18 @@
 package com.example.rebrain.controllers;
 
+import com.example.rebrain.entity.SetEntity;
 import com.example.rebrain.exception.NoteNotFoundException;
+import com.example.rebrain.exception.SetNotFoundException;
 import com.example.rebrain.model.UpdateNote;
 import lombok.AllArgsConstructor;
 import com.example.rebrain.entity.NoteEntity;
 import com.example.rebrain.services.NoteService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.net.URI;
 import java.util.List;
 
 @RestController
@@ -22,7 +26,9 @@ public class NoteController {
     @PostMapping
     public ResponseEntity createNote(@RequestBody NoteEntity note) {
         try {
-            return ResponseEntity.ok(noteService.create(note));
+            NoteEntity createdNote = noteService.create(note);
+            URI location = URI.create("/notes/" + createdNote.getId());
+            return ResponseEntity.created(location).body(createdNote);
         } catch (Exception e) {
             return ResponseEntity.badRequest().body("Произошла ошибка");
         }
@@ -62,7 +68,10 @@ public class NoteController {
     @DeleteMapping("/{id}")
     public ResponseEntity deleteNote(@PathVariable Integer id) {
         try {
-            return ResponseEntity.ok(noteService.delete(id));
+            noteService.delete(id);
+            return ResponseEntity.noContent().build();  // Возвращает код 204
+        } catch (NoteNotFoundException e) {
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).body(e.getMessage());  // Возвращает код 404
         } catch (Exception e) {
             return ResponseEntity.badRequest().body("Произошла ошибка");
         }

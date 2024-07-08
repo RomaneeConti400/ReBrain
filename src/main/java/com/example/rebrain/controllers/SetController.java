@@ -10,6 +10,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.net.URI;
 import java.util.List;
 
 @RestController
@@ -23,7 +24,9 @@ public class SetController {
     @PostMapping
     public ResponseEntity createSet(@RequestBody SetEntity set) {
         try {
-            return ResponseEntity.ok(setService.create(set));
+            SetEntity createdSet = setService.create(set);
+            URI location = URI.create("/sets/" + createdSet.getId());
+            return ResponseEntity.created(location).body(createdSet);
         } catch (Exception e) {
             return ResponseEntity.badRequest().body("Произошла ошибка");
         }
