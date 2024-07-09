@@ -14,13 +14,13 @@ import lombok.NoArgsConstructor;
 public class CardEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
-    @Column(name = "card_id")
+    @Column(name = "id")
     private Integer id;
 
-    @Column(name = "card_title")
+    @Column(name = "title")
     private String title;
 
-    @Column(name = "card_description")
+    @Column(name = "description")
     private String description;
 
 }

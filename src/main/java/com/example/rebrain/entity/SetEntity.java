@@ -14,12 +14,12 @@ public class SetEntity {
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
-    @Column(name = "set_id")
+    @Column(name = "id")
     private Integer id;
 
-    @Column(name = "set_title")
+    @Column(name = "title")
     private String title;
 
-    @Column(name = "set_description")
+    @Column(name = "description")
     private String description;
 }

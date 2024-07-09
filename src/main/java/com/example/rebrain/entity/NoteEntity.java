@@ -14,15 +14,15 @@ public class NoteEntity {
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
-    @Column(name = "note_id")
+    @Column(name = "id")
     private Integer id;
 
-    @Column(name = "note_title")
+    @Column(name = "title")
     private String title;
 
-    @Column(name = "note_text")
+    @Column(name = "text")
     private String text;
 
-    @Column(name = "note_description")
+    @Column(name = "description")
     private String description;
 }
