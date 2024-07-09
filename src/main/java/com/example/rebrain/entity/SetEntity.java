@@ -1,4 +1,4 @@
-package com.example.rebrain.models;
+package com.example.rebrain.entity;
 
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
@@ -6,19 +6,20 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 @Entity
-@Table(name = "cards")
+@Table(name = "sets")
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-public class Card {
+public class SetEntity {
+
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
-    @Column(name = "card_id")
+    @Column(name = "id")
     private Integer id;
 
-    @Column(name = "card_title")
+    @Column(name = "title")
     private String title;
 
-    @Column(name = "card_descr")
-    private String descr;
+    @Column(name = "description")
+    private String description;
 }
