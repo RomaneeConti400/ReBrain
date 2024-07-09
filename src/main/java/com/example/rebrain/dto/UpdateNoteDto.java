@@ -1,4 +1,4 @@
-package com.example.rebrain.Dto;
+package com.example.rebrain.dto;
 
 import lombok.Data;
 

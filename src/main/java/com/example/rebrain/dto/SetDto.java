@@ -1,6 +1,6 @@
-package com.example.rebrain.Dto;
+package com.example.rebrain.dto;
 
-import com.example.rebrain.entity.CardEntity;
+import com.example.rebrain.entity.SetEntity;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -8,13 +8,13 @@ import lombok.NoArgsConstructor;
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
-public class CardDto {
+public class SetDto {
     private Integer id;
     private String title;
     private String descr;
 
-    public static CardDto toModel(CardEntity entity) {
-        CardDto model = new CardDto();
+    public static SetDto toModel(SetEntity entity) {
+        SetDto model = new SetDto();
         model.setId(entity.getId());
         model.setTitle(entity.getTitle());
         model.setDescr(entity.getDescr());

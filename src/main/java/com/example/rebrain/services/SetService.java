@@ -1,10 +1,13 @@
 package com.example.rebrain.services;
 
-import com.example.rebrain.exception.SetNotFoundException;
 import com.example.rebrain.entity.SetEntity;
-import com.example.rebrain.Dto.UpdateSetDto;
+import com.example.rebrain.entity.SetEntity;
+import com.example.rebrain.entity.SetEntity;
+import com.example.rebrain.entity.SetEntity;
+import com.example.rebrain.exception.ObjectNotFoundException;
+import com.example.rebrain.dto.UpdateSetDto;
 import com.example.rebrain.repositories.SetRepo;
-import com.example.rebrain.Dto.SetDto;
+import com.example.rebrain.dto.SetDto;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -20,41 +23,39 @@ public class SetService {
     @Autowired
     private final SetRepo setRepo;
 
-    public SetEntity create(SetEntity set) {
-        log.info("Saving new {}", set);
-        return setRepo.save(set);
+    public SetEntity create(SetEntity setEntity) {
+        log.info("Saving new {}", setEntity);
+        return setRepo.save(setEntity);
     }
 
     public List<SetEntity> getAll() {
         return setRepo.findAll();
     }
 
-    public SetEntity getOne(Integer id) throws SetNotFoundException {
-        Optional<SetEntity> set = setRepo.findById(id);
-        if (set.isPresent()) {
-            return set.get();
-        } else {
-            throw new SetNotFoundException("Set with ID " + id + " not found");
-        }
+    public SetEntity getOne(Integer id) throws ObjectNotFoundException {
+        Optional<SetEntity> setOptional = setRepo.findById(id);
+        return setOptional.orElseThrow(() -> new ObjectNotFoundException("Set with ID " + id + " not found"));
     }
 
-    public SetDto update(Integer id, UpdateSetDto updateSet) throws SetNotFoundException {
-        SetEntity set = getOne(id);
-
-        if (updateSet.getTitle() != null) {
-            set.setTitle(updateSet.getTitle());
+    public SetEntity update(Integer id, SetEntity updateEntity) throws ObjectNotFoundException {
+        SetEntity setEntity = getEntityById(id);
+        if (updateEntity.getTitle() != null) {
+            setEntity.setTitle(updateEntity.getTitle());
         }
 
-        if (updateSet.getDescr() != null) {
-            set.setDescr(updateSet.getDescr());
+        if (updateEntity.getDescr() != null) {
+            setEntity.setDescr(updateEntity.getDescr());
         }
-
-        SetEntity savedSet = setRepo.save(set);
-        return SetDto.toModel(savedSet);
+        return setRepo.save(setEntity);
     }
 
-    public Integer delete(Integer id) throws SetNotFoundException {
-        setRepo.deleteById(id);
-        return id;
+    public void delete(Integer id) throws ObjectNotFoundException {
+        SetEntity setEntity = getEntityById(id);
+        setRepo.delete(setEntity);
+    }
+
+    private SetEntity getEntityById(Integer id) throws ObjectNotFoundException {
+        Optional<SetEntity> setOptional = setRepo.findById(id);
+        return setOptional.orElseThrow(() -> new ObjectNotFoundException("Set with ID " + id + " not found"));
     }
 }

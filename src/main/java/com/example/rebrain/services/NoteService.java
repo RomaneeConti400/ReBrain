@@ -1,64 +1,61 @@
 package com.example.rebrain.services;
 
-import com.example.rebrain.exception.NoteNotFoundException;
+import com.example.rebrain.dto.NoteDto;
+import com.example.rebrain.dto.UpdateNoteDto;
 import com.example.rebrain.entity.NoteEntity;
-import com.example.rebrain.Dto.UpdateNoteDto;
+import com.example.rebrain.exception.ObjectNotFoundException;
 import com.example.rebrain.repositories.NoteRepo;
-import com.example.rebrain.Dto.NoteDto;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
 import java.util.Optional;
+import java.util.stream.Collectors;
 
 @Service
 @Slf4j
 @RequiredArgsConstructor
 public class NoteService {
-    @Autowired
+
     private final NoteRepo noteRepo;
 
-    public NoteEntity create(NoteEntity note) {
-        log.info("Saving new {}", note);
-        return noteRepo.save(note);
+    public NoteEntity create(NoteEntity noteEntity) {
+        log.info("Saving new {}", noteEntity);
+        return noteRepo.save(noteEntity);
     }
 
     public List<NoteEntity> getAll() {
         return noteRepo.findAll();
     }
 
-    public NoteEntity getOne(Integer id) throws NoteNotFoundException {
-        Optional<NoteEntity> note = noteRepo.findById(id);
-        if (note.isPresent()) {
-            return note.get();
-        } else {
-            throw new NoteNotFoundException("Note with ID " + id + " not found");
-        }
+    public NoteEntity getOne(Integer id) throws ObjectNotFoundException {
+        Optional<NoteEntity> noteOptional = noteRepo.findById(id);
+        return noteOptional.orElseThrow(() -> new ObjectNotFoundException("Note with ID " + id + " not found"));
     }
 
-    public NoteDto update(Integer id, UpdateNoteDto updateNote) throws NoteNotFoundException {
-        NoteEntity note = getOne(id);
-
-        if (updateNote.getTitle() != null) {
-            note.setTitle(updateNote.getTitle());
+    public NoteEntity update(Integer id, NoteEntity updateEntity) throws ObjectNotFoundException {
+        NoteEntity noteEntity = getEntityById(id);
+        if (updateEntity.getTitle() != null) {
+            noteEntity.setTitle(updateEntity.getTitle());
+        }
+        if (updateEntity.getText() != null) {
+            noteEntity.setText(updateEntity.getText());
+        }
+        if (updateEntity.getDescr() != null) {
+            noteEntity.setDescr(updateEntity.getDescr());
         }
 
-        if (updateNote.getText() != null) {
-            note.setText(updateNote.getText());
-        }
-
-        if (updateNote.getDescr() != null) {
-            note.setDescr(updateNote.getDescr());
-        }
-
-        NoteEntity savedNote = noteRepo.save(note);
-        return NoteDto.toModel(savedNote);
+        return noteRepo.save(noteEntity);
     }
 
-    public Integer delete(Integer id) throws NoteNotFoundException {
-        noteRepo.deleteById(id);
-        return id;
+    public void delete(Integer id) throws ObjectNotFoundException {
+        NoteEntity noteEntity = getEntityById(id);
+        noteRepo.delete(noteEntity);
+    }
+
+    private NoteEntity getEntityById(Integer id) throws ObjectNotFoundException {
+        Optional<NoteEntity> noteOptional = noteRepo.findById(id);
+        return noteOptional.orElseThrow(() -> new ObjectNotFoundException("Note with ID " + id + " not found"));
     }
 }

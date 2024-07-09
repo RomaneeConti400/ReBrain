@@ -1,61 +1,59 @@
 package com.example.rebrain.services;
 
-import com.example.rebrain.exception.CardNotFoundException;
+import com.example.rebrain.dto.CardDto;
+import com.example.rebrain.dto.UpdateCardDto;
+import com.example.rebrain.exception.ObjectNotFoundException;
 import com.example.rebrain.entity.CardEntity;
-import com.example.rebrain.Dto.UpdateCardDto;
+import com.example.rebrain.mapper.CardMapper;
 import com.example.rebrain.repositories.CardRepo;
-import com.example.rebrain.Dto.CardDto;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
 import java.util.Optional;
+import java.util.stream.Collectors;
 
 @Service
 @Slf4j
 @RequiredArgsConstructor
 public class CardService {
-    @Autowired
+
     private final CardRepo cardRepo;
 
-    public CardEntity create(CardEntity card) {
-        log.info("Saving new {}", card);
-        return cardRepo.save(card);
+    public CardEntity create(CardEntity cardEntity) {
+        log.info("Saving new {}", cardEntity);
+        return cardRepo.save(cardEntity);
     }
 
     public List<CardEntity> getAll() {
         return cardRepo.findAll();
     }
 
-    public CardEntity getOne(Integer id) throws CardNotFoundException {
-        Optional<CardEntity> card = cardRepo.findById(id);
-        if (card.isPresent()) {
-            return card.get();
-        } else {
-            throw new CardNotFoundException("Card with ID " + id + " not found");
-        }
+    public CardEntity getOne(Integer id) throws ObjectNotFoundException {
+        Optional<CardEntity> cardOptional = cardRepo.findById(id);
+        return cardOptional.orElseThrow(() -> new ObjectNotFoundException("Card with ID " + id + " not found"));
     }
 
-    public CardDto update(Integer id, UpdateCardDto updateCard) throws CardNotFoundException {
-        CardEntity card = getOne(id);
-
-        if (updateCard.getTitle() != null) {
-            card.setTitle(updateCard.getTitle());
+    public CardEntity update(Integer id, CardEntity updateEntity) throws ObjectNotFoundException {
+        CardEntity cardEntity = getEntityById(id);
+        if (updateEntity.getTitle() != null) {
+            cardEntity.setTitle(updateEntity.getTitle());
         }
 
-        if (updateCard.getDescr() != null) {
-            card.setDescr(updateCard.getDescr());
+        if (updateEntity.getDescr() != null) {
+            cardEntity.setDescr(updateEntity.getDescr());
         }
-
-        CardEntity savedCard = cardRepo.save(card);
-        return CardDto.toModel(savedCard);
+        return cardRepo.save(cardEntity);
     }
 
-    public Integer delete(Integer id) throws CardNotFoundException {
-        cardRepo.deleteById(id);
-        return id;
+    public void delete(Integer id) throws ObjectNotFoundException {
+        CardEntity cardEntity = getEntityById(id);
+        cardRepo.delete(cardEntity);
     }
 
+    private CardEntity getEntityById(Integer id) throws ObjectNotFoundException {
+        Optional<CardEntity> cardOptional = cardRepo.findById(id);
+        return cardOptional.orElseThrow(() -> new ObjectNotFoundException("Card with ID " + id + " not found"));
+    }
 }
