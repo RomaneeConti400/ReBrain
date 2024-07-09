@@ -33,8 +33,7 @@ public class SetService {
     }
 
     public SetEntity getOne(Integer id) throws ObjectNotFoundException {
-        Optional<SetEntity> setOptional = setRepo.findById(id);
-        return setOptional.orElseThrow(() -> new ObjectNotFoundException("Set with ID " + id + " not found"));
+        return setRepo.findById(id).orElseThrow(() -> new ObjectNotFoundException("Set with ID " + id + " not found"));
     }
 
     public SetEntity update(Integer id, SetEntity updateEntity) throws ObjectNotFoundException {

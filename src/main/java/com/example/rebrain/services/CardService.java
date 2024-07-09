@@ -31,8 +31,7 @@ public class CardService {
     }
 
     public CardEntity getOne(Integer id) throws ObjectNotFoundException {
-        Optional<CardEntity> cardOptional = cardRepo.findById(id);
-        return cardOptional.orElseThrow(() -> new ObjectNotFoundException("Card with ID " + id + " not found"));
+        return cardRepo.findById(id).orElseThrow(() -> new ObjectNotFoundException("Card with ID " + id + " not found"));
     }
 
     public CardEntity update(Integer id, CardEntity updateEntity) throws ObjectNotFoundException {
@@ -51,6 +50,7 @@ public class CardService {
         CardEntity cardEntity = getEntityById(id);
         cardRepo.delete(cardEntity);
     }
+
 
     private CardEntity getEntityById(Integer id) throws ObjectNotFoundException {
         Optional<CardEntity> cardOptional = cardRepo.findById(id);

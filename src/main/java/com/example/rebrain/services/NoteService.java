@@ -30,8 +30,7 @@ public class NoteService {
     }
 
     public NoteEntity getOne(Integer id) throws ObjectNotFoundException {
-        Optional<NoteEntity> noteOptional = noteRepo.findById(id);
-        return noteOptional.orElseThrow(() -> new ObjectNotFoundException("Note with ID " + id + " not found"));
+        return noteRepo.findById(id).orElseThrow(() -> new ObjectNotFoundException("Note with ID " + id + " not found"));
     }
 
     public NoteEntity update(Integer id, NoteEntity updateEntity) throws ObjectNotFoundException {
