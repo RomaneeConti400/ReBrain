@@ -11,13 +11,6 @@ import lombok.NoArgsConstructor;
 public class SetDto {
     private Integer id;
     private String title;
-    private String descr;
+    private String description;
 
-    public static SetDto toModel(SetEntity entity) {
-        SetDto model = new SetDto();
-        model.setId(entity.getId());
-        model.setTitle(entity.getTitle());
-        model.setDescr(entity.getDescr());
-        return model;
-    }
 }

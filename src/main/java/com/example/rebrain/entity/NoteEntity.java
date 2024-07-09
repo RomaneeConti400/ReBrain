@@ -23,6 +23,6 @@ public class NoteEntity {
     @Column(name = "note_text")
     private String text;
 
-    @Column(name = "note_descr")
-    private String descr;
+    @Column(name = "note_description")
+    private String description;
 }

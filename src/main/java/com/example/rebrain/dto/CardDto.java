@@ -11,6 +11,6 @@ import lombok.NoArgsConstructor;
 public class CardDto {
     private Integer id;
     private String title;
-    private String descr;
+    private String description;
 
 }

@@ -41,8 +41,8 @@ public class CardService {
             cardEntity.setTitle(updateEntity.getTitle());
         }
 
-        if (updateEntity.getDescr() != null) {
-            cardEntity.setDescr(updateEntity.getDescr());
+        if (updateEntity.getDescription() != null) {
+            cardEntity.setDescription(updateEntity.getDescription());
         }
         return cardRepo.save(cardEntity);
     }

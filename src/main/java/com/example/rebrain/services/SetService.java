@@ -43,8 +43,8 @@ public class SetService {
             setEntity.setTitle(updateEntity.getTitle());
         }
 
-        if (updateEntity.getDescr() != null) {
-            setEntity.setDescr(updateEntity.getDescr());
+        if (updateEntity.getDescription() != null) {
+            setEntity.setDescription(updateEntity.getDescription());
         }
         return setRepo.save(setEntity);
     }

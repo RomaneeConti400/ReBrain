@@ -12,7 +12,7 @@ public class SetMapper {
         SetEntity setEntity = new SetEntity();
         setEntity.setId(setDto.getId());
         setEntity.setTitle(setDto.getTitle());
-        setEntity.setDescr(setDto.getDescr());
+        setEntity.setDescription(setDto.getDescription());
         return setEntity;
     }
 
@@ -23,7 +23,7 @@ public class SetMapper {
         SetDto setDto = new SetDto();
         setDto.setId(setEntity.getId());
         setDto.setTitle(setEntity.getTitle());
-        setDto.setDescr(setEntity.getDescr());
+        setDto.setDescription(setEntity.getDescription());
         return setDto;
     }
 }

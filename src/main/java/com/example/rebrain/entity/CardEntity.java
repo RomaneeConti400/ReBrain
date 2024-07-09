@@ -20,7 +20,7 @@ public class CardEntity {
     @Column(name = "card_title")
     private String title;
 
-    @Column(name = "card_descr")
-    private String descr;
+    @Column(name = "card_description")
+    private String description;
 
 }

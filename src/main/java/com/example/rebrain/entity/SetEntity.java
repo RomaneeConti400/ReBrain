@@ -20,6 +20,6 @@ public class SetEntity {
     @Column(name = "set_title")
     private String title;
 
-    @Column(name = "set_descr")
-    private String descr;
+    @Column(name = "set_description")
+    private String description;
 }

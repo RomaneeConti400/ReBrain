@@ -12,6 +12,6 @@ public class NoteDto {
     private Integer id;
     private String title;
     private String text;
-    private String descr;
+    private String description;
 
 }

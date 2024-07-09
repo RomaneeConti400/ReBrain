@@ -42,8 +42,8 @@ public class NoteService {
         if (updateEntity.getText() != null) {
             noteEntity.setText(updateEntity.getText());
         }
-        if (updateEntity.getDescr() != null) {
-            noteEntity.setDescr(updateEntity.getDescr());
+        if (updateEntity.getDescription() != null) {
+            noteEntity.setDescription(updateEntity.getDescription());
         }
 
         return noteRepo.save(noteEntity);

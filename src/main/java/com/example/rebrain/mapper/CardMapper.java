@@ -12,7 +12,7 @@ public class CardMapper {
         CardEntity cardEntity = new CardEntity();
         cardEntity.setId(cardDto.getId());
         cardEntity.setTitle(cardDto.getTitle());
-        cardEntity.setDescr(cardDto.getDescr());
+        cardEntity.setDescription(cardDto.getDescription());
         return cardEntity;
     }
 
@@ -23,7 +23,7 @@ public class CardMapper {
         CardDto cardDto = new CardDto();
         cardDto.setId(cardEntity.getId());
         cardDto.setTitle(cardEntity.getTitle());
-        cardDto.setDescr(cardEntity.getDescr());
+        cardDto.setDescription(cardEntity.getDescription());
         return cardDto;
     }
 }
