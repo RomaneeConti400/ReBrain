@@ -7,6 +7,7 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 public class ReBrainApplication {
 
     public static void main(String[] args) {
+
         SpringApplication.run(ReBrainApplication.class, args);
     }
 
