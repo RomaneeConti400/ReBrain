@@ -2,7 +2,6 @@ package com.example.rebrain;
 
 import com.example.rebrain.dto.CardDto;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.jdbc.AutoConfigureTestDatabase;
@@ -14,7 +13,6 @@ import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.ResultActions;
 
 import java.nio.charset.StandardCharsets;
-import java.util.List;
 
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
@@ -31,18 +29,12 @@ public class CardControllerTest {
     @Autowired
     private ObjectMapper objectMapper;
 
-    // Тестовые данные
-    private CardDto testCardDto;
-
-    @BeforeEach
-    public void setUp() {
-        testCardDto = new CardDto();
-        testCardDto.setTitle("Test Card");
-        testCardDto.setDescription("Test Description");
-    }
-
     @Test
     public void testCreateCard() throws Exception {
+        CardDto testCardDto = new CardDto();
+        testCardDto.setTitle("Test Card");
+        testCardDto.setDescription("Test Description");
+
         // Конвертируем CardDto в JSON
         String jsonRequest = objectMapper.writeValueAsString(testCardDto);
 
@@ -60,7 +52,7 @@ public class CardControllerTest {
     @Test
     public void testGetCardById() throws Exception {
         // Создаем карточку для теста
-        CardDto createdCard = createTestCard();
+        CardDto createdCard = createTestCard("Test Card", "Test Description");
 
         // Отправляем GET запрос на получение карточки по ID
         ResultActions result = mockMvc.perform(get("/cards/{id}", createdCard.getId()));
@@ -74,7 +66,7 @@ public class CardControllerTest {
     @Test
     public void testUpdateCard() throws Exception {
         // Создаем карточку для теста
-        CardDto createdCard = createTestCard();
+        CardDto createdCard = createTestCard("Test Card", "Test Description");
 
         // Обновляем данные карточки
         String updatedTitle = "Updated Title";
@@ -94,7 +86,7 @@ public class CardControllerTest {
     @Test
     public void testDeleteCard() throws Exception {
         // Создаем карточку для теста
-        CardDto createdCard = createTestCard();
+        CardDto createdCard = createTestCard("Test Card", "Test Description");
 
         // Отправляем DELETE запрос на удаление карточки по ID
         ResultActions result = mockMvc.perform(delete("/cards/{id}", createdCard.getId()));
@@ -108,7 +100,11 @@ public class CardControllerTest {
     }
 
     // Вспомогательный метод для создания карточки и получения её DTO
-    private CardDto createTestCard() throws Exception {
+    private CardDto createTestCard(String title, String description) throws Exception {
+        CardDto testCardDto = new CardDto();
+        testCardDto.setTitle(title);
+        testCardDto.setDescription(description);
+
         String jsonRequest = objectMapper.writeValueAsString(testCardDto);
         String responseJson = mockMvc.perform(post("/cards")
                         .contentType(MediaType.APPLICATION_JSON)
@@ -121,4 +117,3 @@ public class CardControllerTest {
         return objectMapper.readValue(responseJson, CardDto.class);
     }
 }
-
