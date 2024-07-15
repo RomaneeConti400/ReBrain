@@ -37,7 +37,7 @@ public class CardControllerTest {
     private CardRepo cardRepo;
 
     @Test
-    public void testCreateCard() throws Exception {
+    public void createCard() throws Exception {
         CardDto testCardDto = new CardDto();
         testCardDto.setTitle("Test Card");
         testCardDto.setDescription("Test Description");
@@ -57,7 +57,7 @@ public class CardControllerTest {
     }
 
     @Test
-    public void testGetCardById() throws Exception {
+    public void getCardById() throws Exception {
         // Создаем карточку для теста
         CardEntity createdCard = createTestCard("Test Card", "Test Description");
 
@@ -71,7 +71,7 @@ public class CardControllerTest {
     }
 
     @Test
-    public void testUpdateCard() throws Exception {
+    public void updateCard() throws Exception {
         // Создаем карточку для теста
         CardEntity createdCard = createTestCard("Test Card", "Test Description");
 
@@ -92,7 +92,7 @@ public class CardControllerTest {
     }
 
     @Test
-    public void testDeleteCard() throws Exception {
+    public void deleteCard() throws Exception {
         // Создаем карточку для теста
         CardEntity createdCard = createTestCard("Test Card", "Test Description");
 
