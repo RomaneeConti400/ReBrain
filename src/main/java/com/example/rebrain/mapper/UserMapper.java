@@ -11,9 +11,9 @@ public class UserMapper {
         }
         UserEntity userEntity = new UserEntity();
         userEntity.setId(userDto.getId());
-        userEntity.setFirst_name(userDto.getFirst_name());
-        userEntity.setLast_name(userDto.getLast_name());
-        userEntity.setMiddle_name(userDto.getMiddle_name());
+        userEntity.setFirstName(userDto.getFirstName());
+        userEntity.setLastName(userDto.getLastName());
+        userEntity.setMiddleName(userDto.getMiddleName());
         userEntity.setEmail(userDto.getEmail());
         return userEntity;
     }
@@ -24,9 +24,9 @@ public class UserMapper {
         }
         UserDto userDto = new UserDto();
         userDto.setId(userEntity.getId());
-        userDto.setFirst_name(userEntity.getFirst_name());
-        userDto.setMiddle_name(userEntity.getMiddle_name());
-        userDto.setLast_name(userEntity.getLast_name());
+        userDto.setFirstName(userEntity.getFirstName());
+        userDto.setMiddleName(userEntity.getMiddleName());
+        userDto.setLastName(userEntity.getLastName());
         userDto.setEmail(userEntity.getEmail());
         return userDto;
     }
