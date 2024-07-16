@@ -1,4 +1,4 @@
-create table users (
+create table if not exists users (
     id BIGINT not null,
     first_name varchar(255),
     middle_name varchar(255),

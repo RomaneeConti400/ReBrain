@@ -1,11 +1,11 @@
-create table cards (
+create table if not exists cards (
     id BIGINT not null,
     description varchar(255),
     title varchar(255),
     primary key (id)
 );
 
-create table notes (
+create table if not exists notes (
     id BIGINT not null,
     description varchar(255),
     text varchar(255),
@@ -13,7 +13,7 @@ create table notes (
     primary key (id)
 );
 
-create table sets (
+create table if not exists sets (
     id BIGINT not null,
     description varchar(255),
     title varchar(255),
