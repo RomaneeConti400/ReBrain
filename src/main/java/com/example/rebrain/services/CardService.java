@@ -3,6 +3,7 @@ package com.example.rebrain.services;
 import com.example.rebrain.entity.CardEntity;
 import com.example.rebrain.exception.ObjectNotFoundException;
 import com.example.rebrain.repositories.CardRepo;
+import com.example.rebrain.util.ThreadLocalUserIdHolder;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
@@ -17,6 +18,8 @@ public class CardService {
     private final CardRepo cardRepo;
 
     public CardEntity create(CardEntity cardEntity) {
+        Integer userId = ThreadLocalUserIdHolder.get();
+        cardEntity.setUserId(userId);
         log.debug("Saving new card: {}", cardEntity);
         CardEntity savedEntity = cardRepo.save(cardEntity);
         log.info("Card saved with ID: {}", savedEntity.getId());

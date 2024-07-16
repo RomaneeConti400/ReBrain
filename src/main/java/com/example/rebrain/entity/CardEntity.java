@@ -23,4 +23,6 @@ public class CardEntity {
     @Column(name = "description")
     private String description;
 
+    @Column(name = "user_id")
+    private Integer userId;
 }
