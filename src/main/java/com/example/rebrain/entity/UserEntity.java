@@ -1,28 +1,31 @@
 package com.example.rebrain.entity;
 
-import com.example.rebrain.dto.CardDto;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
 @Entity
-@Table(name = "cards")
+@Table(name = "users")
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-public class CardEntity {
+public class UserEntity {
+
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     @Column(name = "id")
     private Integer id;
 
-    @Column(name = "title")
-    private String title;
+    @Column(name = "first_name")
+    private String first_name;
 
-    @Column(name = "description")
-    private String description;
+    @Column(name = "middle_name")
+    private String middle_name;
 
-    @Column(name = "user_id")
-    private String user_id;
+    @Column(name = "last_name")
+    private String last_name;
+
+    @Column(name = "email")
+    private String email;
 }
