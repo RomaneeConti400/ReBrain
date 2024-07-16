@@ -1,6 +1,6 @@
 package com.example.rebrain.dto;
 
-import com.example.rebrain.entity.NoteEntity;
+import jakarta.persistence.Column;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -8,10 +8,10 @@ import lombok.NoArgsConstructor;
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
-public class NoteDto {
+public class UserDto {
     private Integer id;
-    private String title;
-    private String text;
-    private String description;
-    private Integer user_id;
+    private String first_name;
+    private String middle_name;
+    private String last_name;
+    private String email;
 }
