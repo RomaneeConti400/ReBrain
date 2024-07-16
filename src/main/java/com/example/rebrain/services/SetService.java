@@ -8,6 +8,7 @@ import com.example.rebrain.exception.ObjectNotFoundException;
 import com.example.rebrain.dto.UpdateSetDto;
 import com.example.rebrain.repositories.SetRepo;
 import com.example.rebrain.dto.SetDto;
+import com.example.rebrain.util.ThreadLocalUserIdHolder;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -24,6 +25,8 @@ public class SetService {
     private final SetRepo setRepo;
 
     public SetEntity create(SetEntity setEntity) {
+        Integer userId = ThreadLocalUserIdHolder.get();
+        setEntity.setUser_id(userId);
         log.info("Saving new {}", setEntity);
         return setRepo.save(setEntity);
     }

@@ -5,6 +5,7 @@ import com.example.rebrain.dto.UpdateNoteDto;
 import com.example.rebrain.entity.NoteEntity;
 import com.example.rebrain.exception.ObjectNotFoundException;
 import com.example.rebrain.repositories.NoteRepo;
+import com.example.rebrain.util.ThreadLocalUserIdHolder;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
@@ -21,6 +22,8 @@ public class NoteService {
     private final NoteRepo noteRepo;
 
     public NoteEntity create(NoteEntity noteEntity) {
+        Integer userId = ThreadLocalUserIdHolder.get();
+        noteEntity.setUser_id(userId);
         log.info("Saving new {}", noteEntity);
         return noteRepo.save(noteEntity);
     }
