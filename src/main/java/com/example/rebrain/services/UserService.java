@@ -40,14 +40,14 @@ public class UserService {
     public UserEntity update(Integer id, UserEntity updateEntity) {
         log.debug("Updating user with ID: {} with data: {}", id, updateEntity);
         UserEntity userEntity = getEntityById(id);
-        if (updateEntity.getFirst_name() != null) {
-            userEntity.setFirst_name(updateEntity.getFirst_name());
+        if (updateEntity.getFirstName() != null) {
+            userEntity.setFirstName(updateEntity.getFirstName());
         }
-        if (updateEntity.getMiddle_name() != null) {
-            userEntity.setMiddle_name(updateEntity.getMiddle_name());
+        if (updateEntity.getMiddleName() != null) {
+            userEntity.setMiddleName(updateEntity.getMiddleName());
         }
-        if (updateEntity.getLast_name() != null) {
-            userEntity.setLast_name(updateEntity.getLast_name());
+        if (updateEntity.getLastName() != null) {
+            userEntity.setLastName(updateEntity.getLastName());
         }
         if (updateEntity.getEmail() != null) {
             userEntity.setEmail(updateEntity.getEmail());

@@ -27,5 +27,5 @@ public class NoteEntity {
     private String description;
 
     @Column(name = "user_id")
-    private Integer user_id;
+    private Integer userId;
 }

@@ -26,7 +26,7 @@ public class SetService {
 
     public SetEntity create(SetEntity setEntity) {
         Integer userId = ThreadLocalUserIdHolder.get();
-        setEntity.setUser_id(userId);
+        setEntity.setUserId(userId);
         log.info("Saving new {}", setEntity);
         return setRepo.save(setEntity);
     }

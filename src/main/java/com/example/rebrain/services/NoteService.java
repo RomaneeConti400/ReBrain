@@ -23,7 +23,7 @@ public class NoteService {
 
     public NoteEntity create(NoteEntity noteEntity) {
         Integer userId = ThreadLocalUserIdHolder.get();
-        noteEntity.setUser_id(userId);
+        noteEntity.setUserId(userId);
         log.info("Saving new {}", noteEntity);
         return noteRepo.save(noteEntity);
     }
