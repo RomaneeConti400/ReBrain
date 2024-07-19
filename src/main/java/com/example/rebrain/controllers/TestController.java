@@ -1,8 +1,11 @@
 package com.example.rebrain.controllers;
 
+import com.example.rebrain.dto.CardDto;
+import com.example.rebrain.dto.TestAnswersDto;
 import com.example.rebrain.dto.TestDto;
 import com.example.rebrain.dto.TestPostDto;
 import com.example.rebrain.entity.TestEntity;
+import com.example.rebrain.mapper.CardMapper;
 import com.example.rebrain.mapper.TestMapper;
 import com.example.rebrain.services.TestService;
 import lombok.extern.slf4j.Slf4j;
@@ -20,32 +23,28 @@ public class TestController {
         this.testService = testService;
     }
 
-    @PostMapping("/{setId}")
-    public ResponseEntity<TestPostDto> createTest(@PathVariable Integer setId) {
+    @PostMapping
+    public ResponseEntity<TestPostDto> createTest(@RequestBody TestPostDto testPostDto) {
         TestEntity testEntity = new TestEntity();
-        testEntity.setSetId(setId);
+        testEntity.setSetId(testPostDto.getSetId());
         TestEntity createdTest = testService.create(testEntity);
-        TestPostDto createdTestDto = new TestPostDto();
-        createdTestDto.setTestId(createdTest.getId());
-        createdTestDto.setSetId(createdTest.getSetId());
+        TestPostDto createdTestDto = new TestPostDto(createdTest.getId(), createdTest.getSetId());
         return ResponseEntity.ok(createdTestDto);
     }
 
-    @GetMapping("/{id}")
+    @PostMapping("/{testId}")
+    public ResponseEntity<TestDto> finishTest(@RequestBody TestAnswersDto testAnswersDto) {
+        TestEntity result = testService.finishTest(testAnswersDto);
+        TestDto resultToDto = TestMapper.toDto(result);
+        return ResponseEntity.ok(resultToDto);
+    }
+
+        @GetMapping("/{id}")
     public ResponseEntity<TestDto> getTestById(@PathVariable Integer id) {
         log.debug("Fetching test with ID: {}", id);
         TestDto test = TestMapper.toDto(testService.getOne(id));
         log.debug("Test found: {}", test);
         return ResponseEntity.ok(test);
-    }
-
-    @PatchMapping("/{id}")
-    public ResponseEntity<TestDto> updateTest(@PathVariable Integer id, @RequestBody TestDto testDto) {
-        log.debug("Updating test with ID: {} with data: {}", id, testDto);
-        TestEntity updateEntity = TestMapper.toEntity(testDto);
-        TestDto updatedTest = TestMapper.toDto(testService.update(id, updateEntity));
-        log.info("Test with ID: {} updated", id);
-        return ResponseEntity.ok(updatedTest);
     }
 
     @DeleteMapping("/{id}")

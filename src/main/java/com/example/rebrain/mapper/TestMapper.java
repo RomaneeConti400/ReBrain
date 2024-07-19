@@ -1,6 +1,7 @@
 package com.example.rebrain.mapper;
 
 import com.example.rebrain.dto.TestDto;
+import com.example.rebrain.entity.CardEntity;
 import com.example.rebrain.entity.TestEntity;
 
 public class TestMapper {

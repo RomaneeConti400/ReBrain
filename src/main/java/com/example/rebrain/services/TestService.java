@@ -1,7 +1,14 @@
 package com.example.rebrain.services;
 
+import com.example.rebrain.dto.AnswerDto;
+import com.example.rebrain.dto.TestAnswersDto;
+import com.example.rebrain.dto.TestDto;
+import com.example.rebrain.entity.CardEntity;
 import com.example.rebrain.entity.TestEntity;
 import com.example.rebrain.exception.ObjectNotFoundException;
+import com.example.rebrain.mapper.CardMapper;
+import com.example.rebrain.mapper.TestMapper;
+import com.example.rebrain.repositories.CardRepo;
 import com.example.rebrain.repositories.TestRepo;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -15,6 +22,7 @@ import java.util.List;
 public class TestService {
 
     private final TestRepo testRepo;
+    private final CardRepo cardRepo;
 
     public TestEntity create(TestEntity testEntity) {
         log.debug("Saving new test: {}", testEntity);
@@ -23,9 +31,27 @@ public class TestService {
         return savedEntity;
     }
 
-    public List<TestEntity> getAll() {
-        log.debug("Fetching all tests");
-        return testRepo.findAll();
+    public TestEntity finishTest(TestAnswersDto testAnswersDto) {
+        List<AnswerDto> answers = testAnswersDto.getAnswers();
+        int correctAnswers = 0;
+        int wrongAnswers = 0;
+
+        for (AnswerDto answer : answers) {
+            CardEntity card = cardRepo.findById(answer.getCardId()).orElse(null);
+            if (card != null && card.getTitle().equals(answer.getAnswer())) {
+                correctAnswers++;
+            } else {
+                wrongAnswers++;
+            }
+        }
+
+        TestEntity testEntity = getEntityById(testAnswersDto.getTestId());
+        testEntity.setId(testAnswersDto.getTestId());
+        testEntity.setCorrectAnswers(correctAnswers);
+        testEntity.setWrongAnswers(wrongAnswers);
+        testEntity.setCardsNumber(answers.size());
+        testRepo.save(testEntity);
+        return testEntity;
     }
 
     public TestEntity getOne(Integer id) {
@@ -35,14 +61,6 @@ public class TestService {
                     log.error("Test with ID: {} not found", id);
                     return new ObjectNotFoundException("Test with ID " + id + " not found");
                 });
-    }
-
-    public TestEntity update(Integer id, TestEntity updateEntity) {
-        log.debug("Updating test with ID: {} with data: {}", id, updateEntity);
-        TestEntity testEntity = getEntityById(id);
-        TestEntity updatedEntity = testRepo.save(testEntity);
-        log.info("Test with ID: {} updated", id);
-        return updatedEntity;
     }
 
     public void delete(Integer id) {
