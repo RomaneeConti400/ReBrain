@@ -32,7 +32,7 @@ public class TestController {
         return ResponseEntity.ok(createdTestDto);
     }
 
-    @PostMapping("/{testId}")
+    @PostMapping("/{testId}/answers")
     public ResponseEntity<TestDto> finishTest(@RequestBody TestAnswersDto testAnswersDto) {
         TestEntity result = testService.finishTest(testAnswersDto);
         TestDto resultToDto = TestMapper.toDto(result);
