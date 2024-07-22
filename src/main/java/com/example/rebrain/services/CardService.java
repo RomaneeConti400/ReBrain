@@ -1,8 +1,11 @@
 package com.example.rebrain.services;
 
 import com.example.rebrain.entity.CardEntity;
+import com.example.rebrain.entity.CardsSetsEntity;
 import com.example.rebrain.exception.ObjectNotFoundException;
+import com.example.rebrain.mapper.CardsSetsMapper;
 import com.example.rebrain.repositories.CardRepo;
+import com.example.rebrain.repositories.CardsSetsRepo;
 import com.example.rebrain.util.ThreadLocalUserIdHolder;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -15,14 +18,17 @@ import java.util.List;
 @RequiredArgsConstructor
 public class CardService {
 
+    private final CardsSetsRepo cardsSetsRepo;
     private final CardRepo cardRepo;
 
-    public CardEntity create(CardEntity cardEntity) {
+    public CardEntity create(CardEntity cardEntity, Integer setId) {
         Integer userId = ThreadLocalUserIdHolder.get();
         cardEntity.setUserId(userId);
         log.debug("Saving new card: {}", cardEntity);
         CardEntity savedEntity = cardRepo.save(cardEntity);
         log.info("Card saved with ID: {}", savedEntity.getId());
+        CardsSetsEntity cardsSetsEntity = new CardsSetsEntity(cardEntity.getId(), setId);
+        cardsSetsRepo.save(cardsSetsEntity);
         return savedEntity;
     }
 
