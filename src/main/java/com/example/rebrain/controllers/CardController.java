@@ -1,6 +1,7 @@
 package com.example.rebrain.controllers;
 
 import com.example.rebrain.dto.CardDto;
+import com.example.rebrain.dto.CardPostDto;
 import com.example.rebrain.entity.CardEntity;
 import com.example.rebrain.mapper.CardMapper;
 import com.example.rebrain.services.CardService;
@@ -24,10 +25,11 @@ public class CardController {
     }
 
     @PostMapping
-    public ResponseEntity<CardDto> createCard(@RequestBody CardDto cardDto) {
+    public ResponseEntity<CardDto> createCard(@RequestBody CardPostDto cardDto) {
         log.debug("Creating card with data: {}", cardDto);
-        CardEntity cardEntity = CardMapper.toEntity(cardDto);
-        CardEntity createdCard = cardService.create(cardEntity);
+        CardEntity cardEntity = CardMapper.toEntity(cardDto.getCard());
+        Integer setId = cardDto.getSetId();
+        CardEntity createdCard = cardService.create(cardEntity, setId);
         CardDto createdToDto = CardMapper.toDto(createdCard);
         URI location = URI.create("/cards/" + createdToDto.getId());
         log.info("Card created with ID: {}", createdToDto.getId());
