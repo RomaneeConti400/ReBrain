@@ -10,6 +10,7 @@ import com.example.rebrain.mapper.CardMapper;
 import com.example.rebrain.mapper.TestMapper;
 import com.example.rebrain.repositories.CardRepo;
 import com.example.rebrain.repositories.TestRepo;
+import com.example.rebrain.util.JsonConverter;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import lombok.RequiredArgsConstructor;
@@ -27,7 +28,8 @@ public class TestService {
 
     private final TestRepo testRepo;
     private final CardRepo cardRepo;
-    private final ObjectMapper objectMapper = new ObjectMapper();
+    private final JsonConverter jsonConverter;
+
     public TestEntity create(TestEntity testEntity) {
         log.debug("Saving new test: {}", testEntity);
         TestEntity savedEntity = testRepo.save(testEntity);
@@ -59,13 +61,8 @@ public class TestService {
         testEntity.setWrongAnswers(wrongAnswers);
         testEntity.setCardsNumber(answers.size());
 
-        try {
-            String answersJson = objectMapper.writeValueAsString(answers);
-            testEntity.setAnswers(answersJson);
-        } catch (JsonProcessingException e) {
-            // Обработка исключения
-            throw new RuntimeException("Error converting answers to JSON", e);
-        }
+        String answersJson = jsonConverter.convertAnswersToJson(answers);
+        testEntity.setAnswers(answersJson);
         testRepo.save(testEntity);
         return testEntity;
     }

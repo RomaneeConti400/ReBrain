@@ -39,7 +39,7 @@ public class TestController {
         return ResponseEntity.ok(resultToDto);
     }
 
-        @GetMapping("/{id}")
+    @GetMapping("/{id}")
     public ResponseEntity<TestDto> getTestById(@PathVariable Integer id) {
         log.debug("Fetching test with ID: {}", id);
         TestDto test = TestMapper.toDto(testService.getOne(id));
