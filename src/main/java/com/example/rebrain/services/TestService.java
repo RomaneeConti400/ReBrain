@@ -10,6 +10,8 @@ import com.example.rebrain.mapper.CardMapper;
 import com.example.rebrain.mapper.TestMapper;
 import com.example.rebrain.repositories.CardRepo;
 import com.example.rebrain.repositories.TestRepo;
+import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.databind.ObjectMapper;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
@@ -25,7 +27,7 @@ public class TestService {
 
     private final TestRepo testRepo;
     private final CardRepo cardRepo;
-
+    private final ObjectMapper objectMapper = new ObjectMapper();
     public TestEntity create(TestEntity testEntity) {
         log.debug("Saving new test: {}", testEntity);
         TestEntity savedEntity = testRepo.save(testEntity);
@@ -56,6 +58,14 @@ public class TestService {
         testEntity.setCorrectAnswers(correctAnswers);
         testEntity.setWrongAnswers(wrongAnswers);
         testEntity.setCardsNumber(answers.size());
+
+        try {
+            String answersJson = objectMapper.writeValueAsString(answers);
+            testEntity.setAnswers(answersJson);
+        } catch (JsonProcessingException e) {
+            // Обработка исключения
+            throw new RuntimeException("Error converting answers to JSON", e);
+        }
         testRepo.save(testEntity);
         return testEntity;
     }
