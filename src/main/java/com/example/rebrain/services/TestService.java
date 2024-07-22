@@ -14,6 +14,8 @@ import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 
+import java.time.Duration;
+import java.time.LocalDateTime;
 import java.util.List;
 
 @Service
@@ -44,9 +46,13 @@ public class TestService {
                 wrongAnswers++;
             }
         }
-
+        LocalDateTime startDate = testAnswersDto.getStartDate();
+        LocalDateTime endDate = testAnswersDto.getEndDate();
         TestEntity testEntity = getEntityById(testAnswersDto.getTestId());
         testEntity.setId(testAnswersDto.getTestId());
+        testEntity.setStartDate(startDate);
+        testEntity.setEndDate(endDate);
+        testEntity.setCompletionTime((int) Duration.between(startDate, endDate).getSeconds());
         testEntity.setCorrectAnswers(correctAnswers);
         testEntity.setWrongAnswers(wrongAnswers);
         testEntity.setCardsNumber(answers.size());

@@ -4,6 +4,8 @@ import com.example.rebrain.dto.TestDto;
 import com.example.rebrain.entity.CardEntity;
 import com.example.rebrain.entity.TestEntity;
 
+import java.time.LocalDateTime;
+
 public class TestMapper {
 
     public static TestEntity toEntity(TestDto testDto) {
@@ -19,6 +21,7 @@ public class TestMapper {
         testEntity.setWrongAnswers(testDto.getWrongAnswers());
         testEntity.setCorrectAnswers(testDto.getCorrectAnswers());
         testEntity.setStartDate(testDto.getStartDate());
+        testEntity.setEndDate(testDto.getEndDate());
         testEntity.setCompletionTime(testDto.getCompletionTime());
         return testEntity;
     }
@@ -36,6 +39,7 @@ public class TestMapper {
                 testEntity.getWrongAnswers(),
                 testEntity.getCorrectAnswers(),
                 testEntity.getStartDate(),
+                testEntity.getEndDate(),
                 testEntity.getCompletionTime()
         );
     }

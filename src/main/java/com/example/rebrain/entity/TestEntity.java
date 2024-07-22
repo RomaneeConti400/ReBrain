@@ -4,6 +4,9 @@ import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import org.springframework.format.annotation.DateTimeFormat;
+
+import java.time.LocalDateTime;
 
 
 @Entity
@@ -36,7 +39,12 @@ public class TestEntity {
     private Integer correctAnswers;
 
     @Column(name = "start_date")
-    private String startDate;
+    @DateTimeFormat(pattern = "yyyy-MM-dd HH:mm:ss")
+    private LocalDateTime startDate;
+
+    @Column(name = "end_date")
+    @DateTimeFormat(pattern = "yyyy-MM-dd HH:mm:ss")
+    private LocalDateTime endDate;
 
     @Column(name = "completion_time")
     private Integer completionTime;

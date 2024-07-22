@@ -4,6 +4,8 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+import java.time.LocalDateTime;
+
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
@@ -15,6 +17,7 @@ public class TestDto {
     private Integer cardsNumber;
     private Integer wrongAnswers;
     private Integer correctAnswers;
-    private String startDate;
+    private LocalDateTime startDate;
+    private LocalDateTime endDate;
     private Integer completionTime;
 }
