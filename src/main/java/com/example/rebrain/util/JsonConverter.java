@@ -1,6 +1,7 @@
 package com.example.rebrain.util;
 
 import com.example.rebrain.dto.AnswerDto;
+import com.example.rebrain.exception.InternalProcessingException;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import lombok.RequiredArgsConstructor;
@@ -16,12 +17,12 @@ public class JsonConverter {
 
     private final ObjectMapper objectMapper;
 
-    public String convertAnswersToJson(List<AnswerDto> answers) {
+    public String convertAnswersToJson(Object answers) {
         try {
             return objectMapper.writeValueAsString(answers);
         } catch (JsonProcessingException e) {
             log.error("Error converting answers to JSON", e);
-            throw new RuntimeException("Error converting answers to JSON", e);
+            throw new InternalProcessingException("Error converting answers to JSON: " + e.getMessage());
         }
     }
 }

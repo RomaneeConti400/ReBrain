@@ -9,6 +9,7 @@ import com.example.rebrain.exception.ObjectNotFoundException;
 import com.example.rebrain.mapper.CardMapper;
 import com.example.rebrain.mapper.TestMapper;
 import com.example.rebrain.repositories.CardRepo;
+import com.example.rebrain.repositories.CardsSetsRepo;
 import com.example.rebrain.repositories.TestRepo;
 import com.example.rebrain.util.JsonConverter;
 import com.fasterxml.jackson.core.JsonProcessingException;
@@ -26,12 +27,15 @@ import java.util.List;
 @RequiredArgsConstructor
 public class TestService {
 
+    private final CardsSetsRepo cardsSetsRepo;
     private final TestRepo testRepo;
     private final CardRepo cardRepo;
     private final JsonConverter jsonConverter;
 
     public TestEntity create(TestEntity testEntity) {
         log.debug("Saving new test: {}", testEntity);
+        testEntity.setCardsNumber(cardsSetsRepo.countBySetId(testEntity.getSetId()));
+        testEntity.setStartDate(LocalDateTime.now());
         TestEntity savedEntity = testRepo.save(testEntity);
         log.info("Test saved with ID: {}", savedEntity.getId());
         return savedEntity;
@@ -44,7 +48,7 @@ public class TestService {
 
         for (AnswerDto answer : answers) {
             CardEntity card = cardRepo.findById(answer.getCardId()).orElse(null);
-            if (card != null && card.getTitle().equals(answer.getAnswer())) {
+            if (card != null && card.getTitle().equalsIgnoreCase(answer.getAnswer())) {
                 correctAnswers++;
             } else {
                 wrongAnswers++;
@@ -54,12 +58,10 @@ public class TestService {
         LocalDateTime endDate = testAnswersDto.getEndDate();
         TestEntity testEntity = getEntityById(testAnswersDto.getTestId());
         testEntity.setId(testAnswersDto.getTestId());
-        testEntity.setStartDate(startDate);
-        testEntity.setEndDate(endDate);
+        testEntity.setEndDate(LocalDateTime.now());
         testEntity.setCompletionTime((int) Duration.between(startDate, endDate).getSeconds());
         testEntity.setCorrectAnswers(correctAnswers);
         testEntity.setWrongAnswers(wrongAnswers);
-        testEntity.setCardsNumber(answers.size());
 
         String answersJson = jsonConverter.convertAnswersToJson(answers);
         testEntity.setAnswers(answersJson);

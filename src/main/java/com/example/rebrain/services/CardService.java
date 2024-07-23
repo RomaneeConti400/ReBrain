@@ -1,5 +1,6 @@
 package com.example.rebrain.services;
 
+import org.springframework.transaction.annotation.Transactional;
 import com.example.rebrain.entity.CardEntity;
 import com.example.rebrain.entity.CardsSetsEntity;
 import com.example.rebrain.exception.ObjectNotFoundException;
@@ -21,13 +22,14 @@ public class CardService {
     private final CardsSetsRepo cardsSetsRepo;
     private final CardRepo cardRepo;
 
+    @Transactional
     public CardEntity create(CardEntity cardEntity, Integer setId) {
         Integer userId = ThreadLocalUserIdHolder.get();
         cardEntity.setUserId(userId);
         log.debug("Saving new card: {}", cardEntity);
         CardEntity savedEntity = cardRepo.save(cardEntity);
         log.info("Card saved with ID: {}", savedEntity.getId());
-        CardsSetsEntity cardsSetsEntity = new CardsSetsEntity(cardEntity.getId(), setId);
+        CardsSetsEntity cardsSetsEntity = new CardsSetsEntity(savedEntity.getId(), setId);
         cardsSetsRepo.save(cardsSetsEntity);
         return savedEntity;
     }
