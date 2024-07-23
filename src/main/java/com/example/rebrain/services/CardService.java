@@ -18,7 +18,7 @@ public class CardService {
     private final CardRepo cardRepo;
 
     public CardEntity create(CardEntity cardEntity) {
-        Integer userId = ThreadLocalUserIdHolder.get();
+        Long userId = Long.valueOf(ThreadLocalUserIdHolder.get());
         cardEntity.setUserId(userId);
         log.debug("Saving new card: {}", cardEntity);
         CardEntity savedEntity = cardRepo.save(cardEntity);

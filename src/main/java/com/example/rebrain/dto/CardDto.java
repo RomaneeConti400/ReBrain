@@ -9,7 +9,7 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 @AllArgsConstructor
 public class CardDto {
-    private Integer id;
+    private Long id;
     private String title;
     private String description;
     private Integer userId;

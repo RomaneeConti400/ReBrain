@@ -5,7 +5,6 @@ import com.example.rebrain.entity.SetEntity;
 import com.example.rebrain.entity.SetEntity;
 import com.example.rebrain.entity.SetEntity;
 import com.example.rebrain.exception.ObjectNotFoundException;
-import com.example.rebrain.dto.UpdateSetDto;
 import com.example.rebrain.repositories.SetRepo;
 import com.example.rebrain.dto.SetDto;
 import com.example.rebrain.util.ThreadLocalUserIdHolder;
@@ -25,7 +24,7 @@ public class SetService {
     private final SetRepo setRepo;
 
     public SetEntity create(SetEntity setEntity) {
-        Integer userId = ThreadLocalUserIdHolder.get();
+        Long userId = Long.valueOf(ThreadLocalUserIdHolder.get());
         setEntity.setUserId(userId);
         log.info("Saving new {}", setEntity);
         return setRepo.save(setEntity);

@@ -1,7 +1,6 @@
 package com.example.rebrain.services;
 
 import com.example.rebrain.dto.NoteDto;
-import com.example.rebrain.dto.UpdateNoteDto;
 import com.example.rebrain.entity.NoteEntity;
 import com.example.rebrain.exception.ObjectNotFoundException;
 import com.example.rebrain.repositories.NoteRepo;
@@ -22,7 +21,7 @@ public class NoteService {
     private final NoteRepo noteRepo;
 
     public NoteEntity create(NoteEntity noteEntity) {
-        Integer userId = ThreadLocalUserIdHolder.get();
+        Long userId = Long.valueOf(ThreadLocalUserIdHolder.get());
         noteEntity.setUserId(userId);
         log.info("Saving new {}", noteEntity);
         return noteRepo.save(noteEntity);
