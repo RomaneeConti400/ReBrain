@@ -13,9 +13,10 @@ import lombok.NoArgsConstructor;
 public class NoteEntity {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "hibernate_sequence")
+    @SequenceGenerator(name = "hibernate_sequence", sequenceName = "hibernate_sequence", allocationSize = 1)
     @Column(name = "id")
-    private Integer id;
+    private Long id;
 
     @Column(name = "title")
     private String title;
@@ -27,5 +28,5 @@ public class NoteEntity {
     private String description;
 
     @Column(name = "user_id")
-    private Integer userId;
+    private Long userId;
 }

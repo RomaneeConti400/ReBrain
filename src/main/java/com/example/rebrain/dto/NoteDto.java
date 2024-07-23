@@ -9,9 +9,9 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 @AllArgsConstructor
 public class NoteDto {
-    private Integer id;
+    private Long id;
     private String title;
     private String text;
     private String description;
-    private Integer userId;
+    private Long userId;
 }
