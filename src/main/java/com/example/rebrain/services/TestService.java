@@ -35,7 +35,6 @@ public class TestService {
     public TestEntity create(TestEntity testEntity) {
         log.debug("Saving new test: {}", testEntity);
         testEntity.setCardsNumber(cardsSetsRepo.countBySetId(testEntity.getSetId()));
-        testEntity.setStartDate(LocalDateTime.now());
         TestEntity savedEntity = testRepo.save(testEntity);
         log.info("Test saved with ID: {}", savedEntity.getId());
         return savedEntity;
@@ -58,7 +57,8 @@ public class TestService {
         LocalDateTime endDate = testAnswersDto.getEndDate();
         TestEntity testEntity = getEntityById(testAnswersDto.getTestId());
         testEntity.setId(testAnswersDto.getTestId());
-        testEntity.setEndDate(LocalDateTime.now());
+        testEntity.setStartDate(testAnswersDto.getStartDate());
+        testEntity.setEndDate(testAnswersDto.getEndDate());
         testEntity.setCompletionTime((int) Duration.between(startDate, endDate).getSeconds());
         testEntity.setCorrectAnswers(correctAnswers);
         testEntity.setWrongAnswers(wrongAnswers);
