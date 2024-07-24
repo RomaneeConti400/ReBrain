@@ -16,6 +16,7 @@ public class NoteMapper {
         noteEntity.setTitle(noteDto.getTitle());
         noteEntity.setText(noteDto.getText());
         noteEntity.setDescription(noteDto.getDescription());
+        noteEntity.setUserId(noteDto.getUserId());
         return noteEntity;
     }
     
@@ -28,6 +29,7 @@ public class NoteMapper {
         noteDto.setTitle(noteEntity.getTitle());
         noteDto.setText(noteEntity.getText());
         noteDto.setDescription(noteEntity.getDescription());
+        noteDto.setUserId(noteEntity.getUserId());
         return noteDto;
     }
 }

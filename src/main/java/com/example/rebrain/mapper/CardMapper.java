@@ -13,6 +13,7 @@ public class CardMapper {
         cardEntity.setId(cardDto.getId());
         cardEntity.setTitle(cardDto.getTitle());
         cardEntity.setDescription(cardDto.getDescription());
+        cardEntity.setUserId(cardDto.getUserId());
         return cardEntity;
     }
 
@@ -24,6 +25,7 @@ public class CardMapper {
         cardDto.setId(cardEntity.getId());
         cardDto.setTitle(cardEntity.getTitle());
         cardDto.setDescription(cardEntity.getDescription());
+        cardDto.setUserId(cardEntity.getUserId());
         return cardDto;
     }
 }
