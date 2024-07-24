@@ -3,6 +3,12 @@ package com.example.rebrain.services;
 import com.example.rebrain.entity.CardEntity;
 import com.example.rebrain.exception.ObjectNotFoundException;
 import com.example.rebrain.repositories.CardRepo;
+import org.springframework.transaction.annotation.Transactional;
+import com.example.rebrain.entity.CardEntity;
+import com.example.rebrain.entity.CardsSetsEntity;
+import com.example.rebrain.exception.ObjectNotFoundException;
+import com.example.rebrain.mapper.CardsSetsMapper;
+import com.example.rebrain.repositories.CardRepo;
 import com.example.rebrain.util.ThreadLocalUserIdHolder;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -15,14 +21,18 @@ import java.util.List;
 @RequiredArgsConstructor
 public class CardService {
 
+    private final CardsSetsRepo cardsSetsRepo;
     private final CardRepo cardRepo;
 
-    public CardEntity create(CardEntity cardEntity) {
+    @Transactional
+    public CardEntity create(CardEntity cardEntity, Long setId) {
         Long userId = Long.valueOf(ThreadLocalUserIdHolder.get());
         cardEntity.setUserId(userId);
         log.debug("Saving new card: {}", cardEntity);
         CardEntity savedEntity = cardRepo.save(cardEntity);
         log.info("Card saved with ID: {}", savedEntity.getId());
+        CardsSetsEntity cardsSetsEntity = new CardsSetsEntity(savedEntity.getId(), setId);
+        cardsSetsRepo.save(cardsSetsEntity);
         return savedEntity;
     }
 
@@ -31,7 +41,7 @@ public class CardService {
         return cardRepo.findAll();
     }
 
-    public CardEntity getOne(Integer id) {
+    public CardEntity getOne(Long id) {
         log.debug("Fetching card with ID: {}", id);
         return cardRepo.findById(id)
                 .orElseThrow(() -> {
@@ -40,7 +50,7 @@ public class CardService {
                 });
     }
 
-    public CardEntity update(Integer id, CardEntity updateEntity) {
+    public CardEntity update(Long id, CardEntity updateEntity) {
         log.debug("Updating card with ID: {} with data: {}", id, updateEntity);
         CardEntity cardEntity = getEntityById(id);
         if (updateEntity.getTitle() != null) {
@@ -54,14 +64,14 @@ public class CardService {
         return updatedEntity;
     }
 
-    public void delete(Integer id) {
+    public void delete(Long id) {
         log.debug("Deleting card with ID: {}", id);
         CardEntity cardEntity = getEntityById(id);
         cardRepo.delete(cardEntity);
         log.info("Card with ID: {} deleted", id);
     }
 
-    private CardEntity getEntityById(Integer id) {
+    private CardEntity getEntityById(Long id) {
         log.debug("Fetching card entity with ID: {}", id);
         return cardRepo.findById(id)
                 .orElseThrow(() -> {
