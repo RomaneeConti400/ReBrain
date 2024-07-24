@@ -55,7 +55,7 @@ public class NoteController {
     }
 
     @GetMapping("/{id}")
-    public ResponseEntity<NoteDto> getNoteById(@PathVariable Integer id) {
+    public ResponseEntity<NoteDto> getNoteById(@PathVariable Long id) {
         try {
             NoteDto note = NoteMapper.toDto(noteService.getOne(id));
             return ResponseEntity.ok(note);
@@ -67,7 +67,7 @@ public class NoteController {
     }
 
     @PatchMapping("/{id}")
-    public ResponseEntity<NoteDto> updateNote(@PathVariable Integer id, @RequestBody NoteDto noteDto) {
+    public ResponseEntity<NoteDto> updateNote(@PathVariable Long id, @RequestBody NoteDto noteDto) {
         try {
             NoteEntity updateEntity = NoteMapper.toEntity(noteDto);
             NoteDto updatedNote = NoteMapper.toDto(noteService.update(id, updateEntity));
@@ -80,7 +80,7 @@ public class NoteController {
     }
 
     @DeleteMapping("/{id}")
-    public ResponseEntity<Void> deleteNote(@PathVariable Integer id) {
+    public ResponseEntity<Void> deleteNote(@PathVariable Long id) {
         try {
             noteService.delete(id);
             return ResponseEntity.noContent().build();

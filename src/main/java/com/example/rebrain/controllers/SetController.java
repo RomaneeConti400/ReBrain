@@ -1,13 +1,16 @@
 package com.example.rebrain.controllers;
 
-import com.example.rebrain.dto.CardDto;
-import com.example.rebrain.dto.CardsSetsGetDto;
+import com.example.rebrain.dto.*;
 import com.example.rebrain.dto.SetDto;
-import com.example.rebrain.entity.CardEntity;
 import com.example.rebrain.entity.SetEntity;
 import com.example.rebrain.exception.ObjectNotFoundException;
-import com.example.rebrain.mapper.CardMapper;
+import com.example.rebrain.mapper.*;
 import com.example.rebrain.mapper.SetMapper;
+import lombok.AllArgsConstructor;
+import com.example.rebrain.dto.CardDto;
+import com.example.rebrain.dto.CardsSetsGetDto;
+import com.example.rebrain.entity.CardEntity;
+import com.example.rebrain.mapper.CardMapper;
 import lombok.AllArgsConstructor;
 import com.example.rebrain.services.SetService;
 import org.springframework.http.HttpStatus;
@@ -48,7 +51,7 @@ public class SetController {
     }
 
     @GetMapping("/{id}")
-    public ResponseEntity getOneSet(@PathVariable Integer id) {
+    public ResponseEntity getOneSet(@PathVariable Long id) {
         try {
             SetDto set = SetMapper.toDto(setService.getOne(id));
             return ResponseEntity.ok(set);
@@ -60,7 +63,7 @@ public class SetController {
     }
 
     @GetMapping("/{id}/cards")
-    public ResponseEntity<CardsSetsGetDto> getCardsBySetId(@PathVariable Integer id) {
+    public ResponseEntity<CardsSetsGetDto> getCardsBySetId(@PathVariable Long id) {
         List<CardEntity> cardEntities = setService.getCardsBySetId(id);
         List<CardDto> cardDtos = cardEntities.stream()
                 .map(CardMapper::toDto)
@@ -71,7 +74,7 @@ public class SetController {
     }
 
     @PatchMapping("/{id}")
-    public ResponseEntity<SetDto> updateSet(@PathVariable Integer id, @RequestBody SetDto setDto) {
+    public ResponseEntity<SetDto> updateSet(@PathVariable Long id, @RequestBody SetDto setDto) {
         try {
             SetEntity updateEntity = SetMapper.toEntity(setDto);
             SetDto updatedSet = SetMapper.toDto(setService.update(id, updateEntity));
@@ -84,7 +87,7 @@ public class SetController {
     }
 
     @DeleteMapping("/{id}")
-    public ResponseEntity<Void> deleteSet(@PathVariable Integer id) {
+    public ResponseEntity<Void> deleteSet(@PathVariable Long id) {
         try {
             setService.delete(id);
             return ResponseEntity.noContent().build();

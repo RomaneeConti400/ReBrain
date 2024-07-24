@@ -22,7 +22,7 @@ public class NoteService {
     private final NoteRepo noteRepo;
 
     public NoteEntity create(NoteEntity noteEntity) {
-        Integer userId = ThreadLocalUserIdHolder.get();
+        Long userId = Long.valueOf(ThreadLocalUserIdHolder.get());
         noteEntity.setUserId(userId);
         log.info("Saving new {}", noteEntity);
         return noteRepo.save(noteEntity);
@@ -32,11 +32,11 @@ public class NoteService {
         return noteRepo.findAll();
     }
 
-    public NoteEntity getOne(Integer id) throws ObjectNotFoundException {
+    public NoteEntity getOne(Long id) throws ObjectNotFoundException {
         return noteRepo.findById(id).orElseThrow(() -> new ObjectNotFoundException("Note with ID " + id + " not found"));
     }
 
-    public NoteEntity update(Integer id, NoteEntity updateEntity) throws ObjectNotFoundException {
+    public NoteEntity update(Long id, NoteEntity updateEntity) throws ObjectNotFoundException {
         NoteEntity noteEntity = getEntityById(id);
         if (updateEntity.getTitle() != null) {
             noteEntity.setTitle(updateEntity.getTitle());
@@ -51,12 +51,12 @@ public class NoteService {
         return noteRepo.save(noteEntity);
     }
 
-    public void delete(Integer id) throws ObjectNotFoundException {
+    public void delete(Long id) throws ObjectNotFoundException {
         NoteEntity noteEntity = getEntityById(id);
         noteRepo.delete(noteEntity);
     }
 
-    private NoteEntity getEntityById(Integer id) throws ObjectNotFoundException {
+    private NoteEntity getEntityById(Long id) throws ObjectNotFoundException {
         Optional<NoteEntity> noteOptional = noteRepo.findById(id);
         return noteOptional.orElseThrow(() -> new ObjectNotFoundException("Note with ID " + id + " not found"));
     }

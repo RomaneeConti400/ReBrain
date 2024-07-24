@@ -28,7 +28,7 @@ public class CardController {
     public ResponseEntity<CardDto> createCard(@RequestBody CardPostDto cardDto) {
         log.debug("Creating card with data: {}", cardDto);
         CardEntity cardEntity = CardMapper.toEntity(cardDto.getCard());
-        Integer setId = cardDto.getSetId();
+        Long setId = cardDto.getSetId();
         CardEntity createdCard = cardService.create(cardEntity, setId);
         CardDto createdToDto = CardMapper.toDto(createdCard);
         URI location = URI.create("/cards/" + createdToDto.getId());
@@ -48,7 +48,7 @@ public class CardController {
     }
 
     @GetMapping("/{id}")
-    public ResponseEntity<CardDto> getCardById(@PathVariable Integer id) {
+    public ResponseEntity<CardDto> getCardById(@PathVariable Long id) {
         log.debug("Fetching card with ID: {}", id);
         CardDto card = CardMapper.toDto(cardService.getOne(id));
         log.debug("Card found: {}", card);
@@ -56,7 +56,7 @@ public class CardController {
     }
 
     @PatchMapping("/{id}")
-    public ResponseEntity<CardDto> updateCard(@PathVariable Integer id, @RequestBody CardDto cardDto) {
+    public ResponseEntity<CardDto> updateCard(@PathVariable Long id, @RequestBody CardDto cardDto) {
         log.debug("Updating card with ID: {} with data: {}", id, cardDto);
         CardEntity updateEntity = CardMapper.toEntity(cardDto);
         CardDto updatedCard = CardMapper.toDto(cardService.update(id, updateEntity));
@@ -65,7 +65,7 @@ public class CardController {
     }
 
     @DeleteMapping("/{id}")
-    public ResponseEntity<Void> deleteCard(@PathVariable Integer id) {
+    public ResponseEntity<Void> deleteCard(@PathVariable Long id) {
         log.info("Deleting card with ID: {}", id);
         cardService.delete(id);
         log.info("Card with ID: {} deleted", id);
