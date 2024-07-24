@@ -1,11 +1,9 @@
 package com.example.rebrain.controllers;
 
-import com.example.rebrain.dto.CardDto;
 import com.example.rebrain.dto.TestAnswersDto;
 import com.example.rebrain.dto.TestDto;
 import com.example.rebrain.dto.TestPostDto;
 import com.example.rebrain.entity.TestEntity;
-import com.example.rebrain.mapper.CardMapper;
 import com.example.rebrain.mapper.TestMapper;
 import com.example.rebrain.services.TestService;
 import lombok.extern.slf4j.Slf4j;

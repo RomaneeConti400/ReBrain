@@ -1,6 +1,5 @@
 package com.example.rebrain.dto;
 
-import com.example.rebrain.entity.NoteEntity;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;

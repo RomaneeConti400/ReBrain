@@ -5,16 +5,11 @@ import com.example.rebrain.exception.ObjectNotFoundException;
 import com.example.rebrain.repositories.CardRepo;
 import com.example.rebrain.repositories.CardsSetsRepo;
 import org.springframework.transaction.annotation.Transactional;
-import com.example.rebrain.entity.CardEntity;
 import com.example.rebrain.entity.CardsSetsEntity;
-import com.example.rebrain.exception.ObjectNotFoundException;
-import com.example.rebrain.mapper.CardsSetsMapper;
-import com.example.rebrain.repositories.CardRepo;
 import com.example.rebrain.util.ThreadLocalUserIdHolder;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
-
 import java.util.List;
 
 @Service

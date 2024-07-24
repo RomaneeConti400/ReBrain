@@ -1,6 +1,5 @@
 package com.example.rebrain.services;
 
-import com.example.rebrain.dto.NoteDto;
 import com.example.rebrain.entity.NoteEntity;
 import com.example.rebrain.exception.ObjectNotFoundException;
 import com.example.rebrain.repositories.NoteRepo;
@@ -8,10 +7,8 @@ import com.example.rebrain.util.ThreadLocalUserIdHolder;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
-
 import java.util.List;
 import java.util.Optional;
-import java.util.stream.Collectors;
 
 @Service
 @Slf4j

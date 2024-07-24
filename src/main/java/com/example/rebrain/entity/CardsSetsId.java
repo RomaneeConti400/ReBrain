@@ -1,7 +1,6 @@
 package com.example.rebrain.entity;
 
 import java.io.Serializable;
-import java.util.Objects;
 
 public class CardsSetsId implements Serializable {
     private Long cardId;
