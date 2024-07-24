@@ -69,7 +69,7 @@ public class TestService {
         return testEntity;
     }
 
-    public TestEntity getOne(Integer id) {
+    public TestEntity getOne(Long id) {
         log.debug("Fetching test with ID: {}", id);
         return testRepo.findById(id)
                 .orElseThrow(() -> {
@@ -78,14 +78,14 @@ public class TestService {
                 });
     }
 
-    public void delete(Integer id) {
+    public void delete(Long id) {
         log.debug("Deleting test with ID: {}", id);
         TestEntity testEntity = getEntityById(id);
         testRepo.delete(testEntity);
         log.info("Test with ID: {} deleted", id);
     }
 
-    private TestEntity getEntityById(Integer id) {
+    private TestEntity getEntityById(Long id) {
         log.debug("Fetching test entity with ID: {}", id);
         return testRepo.findById(id)
                 .orElseThrow(() -> {

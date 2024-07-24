@@ -15,8 +15,8 @@ import org.hibernate.mapping.TypeDef;
 public class CardsSetsEntity {
     @Id
     @Column(name = "card_id")
-    private Integer cardId;
+    private Long cardId;
     @Id
     @Column(name = "set_id")
-    private Integer setId;
+    private Long setId;
 }

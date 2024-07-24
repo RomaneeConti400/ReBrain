@@ -1,7 +1,6 @@
 package com.example.rebrain.services;
 
 import com.example.rebrain.dto.NoteDto;
-import com.example.rebrain.dto.UpdateNoteDto;
 import com.example.rebrain.entity.NoteEntity;
 import com.example.rebrain.exception.ObjectNotFoundException;
 import com.example.rebrain.repositories.NoteRepo;

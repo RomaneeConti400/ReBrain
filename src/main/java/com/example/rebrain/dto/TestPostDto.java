@@ -8,6 +8,6 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 @NoArgsConstructor
 public class TestPostDto {
-    private Integer testId;
-    private Integer setId;
+    private Long testId;
+    private Long setId;
 }

@@ -18,13 +18,13 @@ public class TestEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     @Column(name = "id")
-    private Integer id;
+    private Long id;
 
     @Column(name = "set_id")
-    private Integer setId;
+    private Long setId;
 
     @Column(name = "user_id")
-    private Integer userId;
+    private Long userId;
 
     @Column(name = "answers")
     private String answers;

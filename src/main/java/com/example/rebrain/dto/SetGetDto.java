@@ -10,7 +10,7 @@ import java.util.List;
 @AllArgsConstructor
 @NoArgsConstructor
 public class SetGetDto {
-    private Integer setId;
+    private Long setId;
     private String setTitle;
     private String setDescription;
     private List<CardDto> cards;

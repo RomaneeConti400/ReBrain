@@ -12,5 +12,5 @@ public class CardDto {
     private Long id;
     private String title;
     private String description;
-    private Integer userId;
+    private Long userId;
 }

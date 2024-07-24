@@ -8,6 +8,6 @@ import org.springframework.data.repository.query.Param;
 import java.util.List;
 
 public interface CardsSetsRepo extends JpaRepository<CardsSetsEntity, CardsSetsId> {
-    List<CardsSetsEntity> findBySetId(Integer setId);
-    Integer countBySetId(@Param("setId") Integer setId);
+    List<CardsSetsEntity> findBySetId(Long setId);
+    Integer countBySetId(@Param("setId") Long setId);
 }

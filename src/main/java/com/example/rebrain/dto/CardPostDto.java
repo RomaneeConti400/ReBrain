@@ -8,6 +8,6 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 @AllArgsConstructor
 public class CardPostDto {
-    private Integer setId;
+    private Long setId;
     private CardDto card;
 }

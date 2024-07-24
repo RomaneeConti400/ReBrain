@@ -11,9 +11,9 @@ import java.util.Map;
 @AllArgsConstructor
 @NoArgsConstructor
 public class TestDto {
-    private Integer id;
-    private Integer setId;
-    private Integer userId;
+    private Long id;
+    private Long setId;
+    private Long userId;
     private String answers;
     private Integer cardsNumber;
     private Integer wrongAnswers;

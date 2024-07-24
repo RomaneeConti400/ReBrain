@@ -10,7 +10,7 @@ import java.util.List;
 @AllArgsConstructor
 @NoArgsConstructor
 public class TestGetDto {
-    private Integer testId;
+    private Long testId;
     private Integer setId;
     private String setTitle;
     private String setDescription;

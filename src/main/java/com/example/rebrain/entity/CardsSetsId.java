@@ -4,13 +4,13 @@ import java.io.Serializable;
 import java.util.Objects;
 
 public class CardsSetsId implements Serializable {
-    private Integer cardId;
-    private Integer setId;
+    private Long cardId;
+    private Long setId;
 
     // Конструкторы
     public CardsSetsId() {}
 
-    public CardsSetsId(Integer cardId, Integer setId) {
+    public CardsSetsId(Long cardId, Long setId) {
         this.cardId = cardId;
         this.setId = setId;
     }

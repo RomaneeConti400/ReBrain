@@ -6,6 +6,6 @@ import org.springframework.data.jpa.repository.JpaRepository;
 
 import java.util.List;
 
-public interface SetRepo extends JpaRepository<SetEntity, Integer> {
+public interface SetRepo extends JpaRepository<SetEntity, Long> {
 
 }

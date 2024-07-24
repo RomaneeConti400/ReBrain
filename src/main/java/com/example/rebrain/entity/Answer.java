@@ -9,6 +9,6 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 @NoArgsConstructor
 public class Answer {
-    private Integer cardId;
+    private Long cardId;
     private String answer;
 }

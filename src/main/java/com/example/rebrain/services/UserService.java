@@ -28,7 +28,7 @@ public class UserService {
         return userRepo.findAll();
     }
 
-    public UserEntity getOne(Integer id) {
+    public UserEntity getOne(Long id) {
         log.debug("Fetching user with ID: {}", id);
         return userRepo.findById(id)
                 .orElseThrow(() -> {
@@ -37,7 +37,7 @@ public class UserService {
                 });
     }
 
-    public UserEntity update(Integer id, UserEntity updateEntity) {
+    public UserEntity update(Long id, UserEntity updateEntity) {
         log.debug("Updating user with ID: {} with data: {}", id, updateEntity);
         UserEntity userEntity = getEntityById(id);
         if (updateEntity.getFirstName() != null) {
@@ -57,14 +57,14 @@ public class UserService {
         return updatedEntity;
     }
 
-    public void delete(Integer id) {
+    public void delete(Long id) {
         log.debug("Deleting user with ID: {}", id);
         UserEntity userEntity = getEntityById(id);
         userRepo.delete(userEntity);
         log.info("User with ID: {} deleted", id);
     }
 
-    private UserEntity getEntityById(Integer id) {
+    private UserEntity getEntityById(Long id) {
         log.debug("Fetching user entity with ID: {}", id);
         return userRepo.findById(id)
                 .orElseThrow(() -> {

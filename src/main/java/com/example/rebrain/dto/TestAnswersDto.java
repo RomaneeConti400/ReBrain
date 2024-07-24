@@ -11,7 +11,7 @@ import java.util.List;
 @AllArgsConstructor
 @NoArgsConstructor
 public class TestAnswersDto {
-    private Integer testId;
+    private Long testId;
     private LocalDateTime startDate;
     private LocalDateTime endDate;
     private List<AnswerDto> answers;

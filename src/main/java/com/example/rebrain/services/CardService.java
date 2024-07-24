@@ -3,6 +3,7 @@ package com.example.rebrain.services;
 import com.example.rebrain.entity.CardEntity;
 import com.example.rebrain.exception.ObjectNotFoundException;
 import com.example.rebrain.repositories.CardRepo;
+import com.example.rebrain.repositories.CardsSetsRepo;
 import org.springframework.transaction.annotation.Transactional;
 import com.example.rebrain.entity.CardEntity;
 import com.example.rebrain.entity.CardsSetsEntity;
