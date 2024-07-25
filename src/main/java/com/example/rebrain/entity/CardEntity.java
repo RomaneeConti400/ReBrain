@@ -1,6 +1,5 @@
 package com.example.rebrain.entity;
 
-import com.example.rebrain.dto.CardDto;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Data;

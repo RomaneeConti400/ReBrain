@@ -4,7 +4,6 @@ import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
-import org.hibernate.mapping.TypeDef;
 
 @Entity
 @Table(name = "cardsSets")
@@ -15,8 +14,8 @@ import org.hibernate.mapping.TypeDef;
 public class CardsSetsEntity {
     @Id
     @Column(name = "card_id")
-    private Integer cardId;
+    private Long cardId;
     @Id
     @Column(name = "set_id")
-    private Integer setId;
+    private Long setId;
 }

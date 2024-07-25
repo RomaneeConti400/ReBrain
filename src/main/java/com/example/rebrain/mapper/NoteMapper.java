@@ -1,8 +1,6 @@
 package com.example.rebrain.mapper;
 
 import com.example.rebrain.dto.NoteDto;
-import com.example.rebrain.dto.NoteDto;
-import com.example.rebrain.entity.NoteEntity;
 import com.example.rebrain.entity.NoteEntity;
 
 public class NoteMapper {

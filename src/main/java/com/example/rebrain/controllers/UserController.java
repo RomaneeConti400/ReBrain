@@ -46,7 +46,7 @@ public class UserController {
     }
 
     @GetMapping("/{id}")
-    public ResponseEntity<UserDto> getUserById(@PathVariable Integer id) {
+    public ResponseEntity<UserDto> getUserById(@PathVariable Long id) {
         log.debug("Fetching user with ID: {}", id);
         UserDto user = UserMapper.toDto(userService.getOne(id));
         log.debug("User found: {}", user);
@@ -54,7 +54,7 @@ public class UserController {
     }
 
     @PatchMapping("/{id}")
-    public ResponseEntity<UserDto> updateUser(@PathVariable Integer id, @RequestBody UserDto userDto) {
+    public ResponseEntity<UserDto> updateUser(@PathVariable Long id, @RequestBody UserDto userDto) {
         log.debug("Updating user with ID: {} with data: {}", id, userDto);
         UserEntity updateEntity = UserMapper.toEntity(userDto);
         UserDto updatedUser = UserMapper.toDto(userService.update(id, updateEntity));
@@ -63,7 +63,7 @@ public class UserController {
     }
 
     @DeleteMapping("/{id}")
-    public ResponseEntity<Void> deleteUser(@PathVariable Integer id) {
+    public ResponseEntity<Void> deleteUser(@PathVariable Long id) {
         log.info("Deleting user with ID: {}", id);
         userService.delete(id);
         log.info("User with ID: {} deleted", id);

@@ -1,15 +1,8 @@
 package com.example.rebrain.controllers;
 
 import com.example.rebrain.dto.NoteDto;
-import com.example.rebrain.dto.NoteDto;
-import com.example.rebrain.dto.NoteDto;
-import com.example.rebrain.dto.UpdateNoteDto;
-import com.example.rebrain.entity.NoteEntity;
-import com.example.rebrain.entity.NoteEntity;
 import com.example.rebrain.entity.NoteEntity;
 import com.example.rebrain.exception.ObjectNotFoundException;
-import com.example.rebrain.mapper.NoteMapper;
-import com.example.rebrain.mapper.NoteMapper;
 import com.example.rebrain.mapper.NoteMapper;
 import com.example.rebrain.services.NoteService;
 import lombok.AllArgsConstructor;

@@ -2,18 +2,13 @@ package com.example.rebrain.services;
 
 import com.example.rebrain.dto.AnswerDto;
 import com.example.rebrain.dto.TestAnswersDto;
-import com.example.rebrain.dto.TestDto;
 import com.example.rebrain.entity.CardEntity;
 import com.example.rebrain.entity.TestEntity;
 import com.example.rebrain.exception.ObjectNotFoundException;
-import com.example.rebrain.mapper.CardMapper;
-import com.example.rebrain.mapper.TestMapper;
 import com.example.rebrain.repositories.CardRepo;
 import com.example.rebrain.repositories.CardsSetsRepo;
 import com.example.rebrain.repositories.TestRepo;
 import com.example.rebrain.util.JsonConverter;
-import com.fasterxml.jackson.core.JsonProcessingException;
-import com.fasterxml.jackson.databind.ObjectMapper;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
@@ -69,7 +64,7 @@ public class TestService {
         return testEntity;
     }
 
-    public TestEntity getOne(Integer id) {
+    public TestEntity getOne(Long id) {
         log.debug("Fetching test with ID: {}", id);
         return testRepo.findById(id)
                 .orElseThrow(() -> {
@@ -78,14 +73,14 @@ public class TestService {
                 });
     }
 
-    public void delete(Integer id) {
+    public void delete(Long id) {
         log.debug("Deleting test with ID: {}", id);
         TestEntity testEntity = getEntityById(id);
         testRepo.delete(testEntity);
         log.info("Test with ID: {} deleted", id);
     }
 
-    private TestEntity getEntityById(Integer id) {
+    private TestEntity getEntityById(Long id) {
         log.debug("Fetching test entity with ID: {}", id);
         return testRepo.findById(id)
                 .orElseThrow(() -> {

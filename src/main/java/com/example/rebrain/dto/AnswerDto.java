@@ -8,6 +8,6 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 @AllArgsConstructor
 public class AnswerDto {
-    private Integer cardId;
+    private Long cardId;
     private String answer;
 }

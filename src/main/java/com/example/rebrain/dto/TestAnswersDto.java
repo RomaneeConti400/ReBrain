@@ -3,7 +3,6 @@ package com.example.rebrain.dto;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
-
 import java.time.LocalDateTime;
 import java.util.List;
 
@@ -11,7 +10,7 @@ import java.util.List;
 @AllArgsConstructor
 @NoArgsConstructor
 public class TestAnswersDto {
-    private Integer testId;
+    private Long testId;
     private LocalDateTime startDate;
     private LocalDateTime endDate;
     private List<AnswerDto> answers;
