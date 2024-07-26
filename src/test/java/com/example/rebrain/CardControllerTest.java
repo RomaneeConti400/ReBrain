@@ -1,6 +1,7 @@
 package com.example.rebrain;
 
 import com.example.rebrain.dto.CardDto;
+import com.example.rebrain.dto.CardPostDto;
 import com.example.rebrain.entity.CardEntity;
 import com.example.rebrain.repositories.CardRepo;
 import com.fasterxml.jackson.databind.ObjectMapper;
@@ -41,14 +42,19 @@ public class CardControllerTest {
         CardDto testCardDto = new CardDto();
         testCardDto.setTitle("Test Card");
         testCardDto.setDescription("Test Description");
+        Long setId = 1L;
 
-        String jsonRequest = objectMapper.writeValueAsString(testCardDto);
+        CardPostDto testCardPostDto = new CardPostDto(setId, testCardDto);
+
+        String jsonRequest = objectMapper.writeValueAsString(testCardPostDto);
 
         ResultActions result = mockMvc.perform(post("/cards")
                 .contentType(MediaType.APPLICATION_JSON)
                 .content(jsonRequest));
 
-        result.andExpect(status().isInternalServerError());
+        result.andExpect(status().isCreated())
+                .andExpect(jsonPath("$.title").value(testCardDto.getTitle()))
+                .andExpect(jsonPath("$.description").value(testCardDto.getDescription()));
     }
 
     @Test
