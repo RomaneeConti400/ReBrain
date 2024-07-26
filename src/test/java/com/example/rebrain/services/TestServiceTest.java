@@ -50,27 +50,27 @@ class TestServiceTest {
     @BeforeEach
     void setUp() {
         cardEntity = new CardEntity();
-        cardEntity.setId(1);
+        cardEntity.setId(1L);
         cardEntity.setTitle("Correct Answer");
 
         AnswerDto answerDto = new AnswerDto();
-        answerDto.setCardId(1);
+        answerDto.setCardId(1L);
         answerDto.setAnswer("Correct Answer");
 
         testAnswersDto = new TestAnswersDto();
-        testAnswersDto.setTestId(1);
+        testAnswersDto.setTestId(1L);
         testAnswersDto.setStartDate(LocalDateTime.now().minusMinutes(10));
         testAnswersDto.setEndDate(LocalDateTime.now());
         testAnswersDto.setAnswers(Collections.singletonList(answerDto));
 
         testEntity = new TestEntity();
-        testEntity.setId(1);
+        testEntity.setId(1L);
     }
 
     @Test
     void finishTest_successful() throws Exception {
-        when(cardRepo.findById(1)).thenReturn(Optional.of(cardEntity));
-        when(testRepo.findById(1)).thenReturn(Optional.of(testEntity));
+        when(cardRepo.findById(1L)).thenReturn(Optional.of(cardEntity));
+        when(testRepo.findById(1L)).thenReturn(Optional.of(testEntity));
         when(jsonConverter.convertAnswersToJson(any())).thenReturn("json");
 
         TestEntity result = testService.finishTest(testAnswersDto);
@@ -85,8 +85,8 @@ class TestServiceTest {
 
     @Test
     void finishTest_cardNotFound() {
-        when(cardRepo.findById(1)).thenReturn(Optional.empty());
-        when(testRepo.findById(1)).thenReturn(Optional.of(testEntity));
+        when(cardRepo.findById(1L)).thenReturn(Optional.empty());
+        when(testRepo.findById(1L)).thenReturn(Optional.of(testEntity));
 
         TestEntity result = testService.finishTest(testAnswersDto);
 
@@ -99,7 +99,7 @@ class TestServiceTest {
 
     @Test
     void finishTest_testNotFound() {
-        when(testRepo.findById(1)).thenReturn(Optional.empty());
+        when(testRepo.findById(1L)).thenReturn(Optional.empty());
 
         assertThrows(ObjectNotFoundException.class, () -> testService.finishTest(testAnswersDto));
     }
