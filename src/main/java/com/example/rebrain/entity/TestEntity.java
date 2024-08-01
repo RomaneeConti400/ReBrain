@@ -15,7 +15,8 @@ import java.time.LocalDateTime;
 @NoArgsConstructor
 public class TestEntity {
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "hibernate_sequence")
+    @SequenceGenerator(name = "hibernate_sequence", sequenceName = "hibernate_sequence", allocationSize = 1)
     @Column(name = "id")
     private Long id;
 
