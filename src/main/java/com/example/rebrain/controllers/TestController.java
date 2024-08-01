@@ -1,14 +1,15 @@
 package com.example.rebrain.controllers;
 
-import com.example.rebrain.dto.TestAnswersDto;
-import com.example.rebrain.dto.TestDto;
-import com.example.rebrain.dto.TestPostDto;
+import com.example.rebrain.dto.*;
 import com.example.rebrain.entity.TestEntity;
+import com.example.rebrain.entity.TestStatisticsView;
 import com.example.rebrain.mapper.TestMapper;
+import com.example.rebrain.mapper.TestStatisticsMapper;
 import com.example.rebrain.services.TestService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+import java.util.List;
 
 @RestController
 @Slf4j
@@ -43,6 +44,13 @@ public class TestController {
         TestDto test = TestMapper.toDto(testService.getOne(id));
         log.debug("Test found: {}", test);
         return ResponseEntity.ok(test);
+    }
+
+    @GetMapping("/statistics")
+    public ResponseEntity<TestStatisticsDto> getTestStatistics(@RequestBody TestStatisticsGetDto testStatisticsGetDto) {
+        TestStatisticsView statisticsView = testService.getTestStatistics(testStatisticsGetDto.getUserId(), testStatisticsGetDto.getSetId());
+        TestStatisticsDto statisticsDto = TestStatisticsMapper.toDto(statisticsView);
+        return ResponseEntity.ok(statisticsDto);
     }
 
     @DeleteMapping("/{id}")

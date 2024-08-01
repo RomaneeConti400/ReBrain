@@ -4,10 +4,12 @@ import com.example.rebrain.dto.AnswerDto;
 import com.example.rebrain.dto.TestAnswersDto;
 import com.example.rebrain.entity.CardEntity;
 import com.example.rebrain.entity.TestEntity;
+import com.example.rebrain.entity.TestStatisticsView;
 import com.example.rebrain.exception.ObjectNotFoundException;
 import com.example.rebrain.repositories.CardRepo;
 import com.example.rebrain.repositories.CardsSetsRepo;
 import com.example.rebrain.repositories.TestRepo;
+import com.example.rebrain.repositories.TestStatisticsRepo;
 import com.example.rebrain.util.JsonConverter;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -26,6 +28,7 @@ public class TestService {
     private final TestRepo testRepo;
     private final CardRepo cardRepo;
     private final JsonConverter jsonConverter;
+    private final TestStatisticsRepo testStatisticsRepo;
 
     public TestEntity create(TestEntity testEntity) {
         log.debug("Saving new test: {}", testEntity);
@@ -71,6 +74,10 @@ public class TestService {
                     log.error("Test with ID: {} not found", id);
                     return new ObjectNotFoundException("Test with ID " + id + " not found");
                 });
+    }
+
+    public TestStatisticsView getTestStatistics(Long userId, Long setId) {
+        return testStatisticsRepo.findByUserIdAndSetId(userId, setId);
     }
 
     public void delete(Long id) {
