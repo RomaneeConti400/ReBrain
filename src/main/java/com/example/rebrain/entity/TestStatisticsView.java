@@ -7,7 +7,7 @@ import lombok.NoArgsConstructor;
 
 import java.math.BigDecimal;
 @Entity
-@Table(name = "test_statistics_view") // Указываем имя представления
+@Table(name = "test_statistics")
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
