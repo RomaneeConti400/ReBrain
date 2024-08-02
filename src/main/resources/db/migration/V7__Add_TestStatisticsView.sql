@@ -9,7 +9,13 @@ BEGIN
         user_id AS userId,
         set_id AS setId,
         COUNT(*) AS testCount,
-        COALESCE(AVG(correct_answers::decimal) * 100 / NULLIF(AVG(cards_number::decimal), 0), 0) AS averageScore
+        CASE
+            WHEN AVG(correct_answers::decimal) IS NOT NULL
+                AND AVG(cards_number::decimal) IS NOT NULL
+                AND AVG(cards_number::decimal) != 0
+                THEN AVG(correct_answers::decimal) * 100 / AVG(cards_number::decimal)
+            ELSE NULL
+            END AS averageScore
     FROM
         tests
     GROUP BY
@@ -24,4 +30,3 @@ CREATE TRIGGER trigger_update_test_statistics_view
     AFTER INSERT OR UPDATE OR DELETE ON tests
     FOR EACH STATEMENT
 EXECUTE FUNCTION update_test_statistics_view();
-
