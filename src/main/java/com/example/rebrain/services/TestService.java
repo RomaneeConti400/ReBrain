@@ -11,6 +11,7 @@ import com.example.rebrain.repositories.CardsSetsRepo;
 import com.example.rebrain.repositories.TestRepo;
 import com.example.rebrain.repositories.TestStatisticsRepo;
 import com.example.rebrain.util.JsonConverter;
+import com.example.rebrain.util.ThreadLocalUserIdHolder;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
@@ -18,6 +19,7 @@ import org.springframework.stereotype.Service;
 import java.time.Duration;
 import java.time.LocalDateTime;
 import java.util.List;
+import java.util.Optional;
 
 @Service
 @Slf4j
@@ -54,6 +56,8 @@ public class TestService {
         LocalDateTime startDate = testAnswersDto.getStartDate();
         LocalDateTime endDate = testAnswersDto.getEndDate();
         TestEntity testEntity = getEntityById(testAnswersDto.getTestId());
+        Long userId = Long.valueOf(ThreadLocalUserIdHolder.get());
+        testEntity.setUserId(userId);
         testEntity.setId(testAnswersDto.getTestId());
         testEntity.setStartDate(testAnswersDto.getStartDate());
         testEntity.setEndDate(testAnswersDto.getEndDate());
