@@ -4,11 +4,14 @@ import com.example.rebrain.dto.AnswerDto;
 import com.example.rebrain.dto.TestAnswersDto;
 import com.example.rebrain.entity.CardEntity;
 import com.example.rebrain.entity.TestEntity;
+import com.example.rebrain.entity.TestStatisticsView;
 import com.example.rebrain.exception.ObjectNotFoundException;
 import com.example.rebrain.repositories.CardRepo;
 import com.example.rebrain.repositories.CardsSetsRepo;
 import com.example.rebrain.repositories.TestRepo;
+import com.example.rebrain.repositories.TestStatisticsRepo;
 import com.example.rebrain.util.JsonConverter;
+import com.example.rebrain.util.ThreadLocalUserIdHolder;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
@@ -16,6 +19,7 @@ import org.springframework.stereotype.Service;
 import java.time.Duration;
 import java.time.LocalDateTime;
 import java.util.List;
+import java.util.Optional;
 
 @Service
 @Slf4j
@@ -26,6 +30,7 @@ public class TestService {
     private final TestRepo testRepo;
     private final CardRepo cardRepo;
     private final JsonConverter jsonConverter;
+    private final TestStatisticsRepo testStatisticsRepo;
 
     public TestEntity create(TestEntity testEntity) {
         log.debug("Saving new test: {}", testEntity);
@@ -51,6 +56,8 @@ public class TestService {
         LocalDateTime startDate = testAnswersDto.getStartDate();
         LocalDateTime endDate = testAnswersDto.getEndDate();
         TestEntity testEntity = getEntityById(testAnswersDto.getTestId());
+        Long userId = Long.valueOf(ThreadLocalUserIdHolder.get());
+        testEntity.setUserId(userId);
         testEntity.setId(testAnswersDto.getTestId());
         testEntity.setStartDate(testAnswersDto.getStartDate());
         testEntity.setEndDate(testAnswersDto.getEndDate());
@@ -71,6 +78,10 @@ public class TestService {
                     log.error("Test with ID: {} not found", id);
                     return new ObjectNotFoundException("Test with ID " + id + " not found");
                 });
+    }
+
+    public TestStatisticsView getTestStatistics(Long userId, Long setId) {
+        return testStatisticsRepo.findByUserIdAndSetId(userId, setId);
     }
 
     public void delete(Long id) {

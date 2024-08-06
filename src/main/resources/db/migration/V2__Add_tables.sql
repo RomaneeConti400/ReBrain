@@ -22,4 +22,3 @@ create table if not exists sets (
     user_id BIGINT not null,
     primary key (id)
 );
-
