@@ -38,19 +38,19 @@ public class TestController {
         return ResponseEntity.ok(resultToDto);
     }
 
+    @PostMapping("/statistics_search")
+    public ResponseEntity<TestStatisticsDto> getTestStatistics(@RequestBody TestStatisticsGetDto testStatisticsGetDto) {
+        TestStatisticsView statisticsView = testService.getTestStatistics(testStatisticsGetDto.getUserId(), testStatisticsGetDto.getSetId());
+        TestStatisticsDto statisticsDto = TestStatisticsMapper.toDto(statisticsView);
+        return ResponseEntity.ok(statisticsDto);
+    }
+
     @GetMapping("/{id}")
     public ResponseEntity<TestDto> getTestById(@PathVariable Long id) {
         log.debug("Fetching test with ID: {}", id);
         TestDto test = TestMapper.toDto(testService.getOne(id));
         log.debug("Test found: {}", test);
         return ResponseEntity.ok(test);
-    }
-
-    @GetMapping("/statistics")
-    public ResponseEntity<TestStatisticsDto> getTestStatistics(@RequestBody TestStatisticsGetDto testStatisticsGetDto) {
-        TestStatisticsView statisticsView = testService.getTestStatistics(testStatisticsGetDto.getUserId(), testStatisticsGetDto.getSetId());
-        TestStatisticsDto statisticsDto = TestStatisticsMapper.toDto(statisticsView);
-        return ResponseEntity.ok(statisticsDto);
     }
 
     @DeleteMapping("/{id}")
