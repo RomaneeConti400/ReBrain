@@ -38,7 +38,7 @@ public class TestController {
         return ResponseEntity.ok(resultToDto);
     }
 
-    @PostMapping("/statistics_search")
+    @PostMapping("/statistics/_search")
     public ResponseEntity<TestStatisticsDto> getTestStatistics(@RequestBody TestStatisticsGetDto testStatisticsGetDto) {
         TestStatisticsView statisticsView = testService.getTestStatistics(testStatisticsGetDto.getUserId(), testStatisticsGetDto.getSetId());
         TestStatisticsDto statisticsDto = TestStatisticsMapper.toDto(statisticsView);
