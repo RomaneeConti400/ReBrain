@@ -39,7 +39,7 @@ public class TestController {
     }
 
     @PostMapping("/statistics/_search")
-    public ResponseEntity<TestStatisticsDto> getTestStatistics(@RequestBody TestStatisticsGetDto testStatisticsGetDto) {
+    public ResponseEntity<TestStatisticsDto> searchTestStatistics(@RequestBody TestStatisticsGetDto testStatisticsGetDto) {
         TestStatisticsView statisticsView = testService.getTestStatistics(testStatisticsGetDto.getUserId(), testStatisticsGetDto.getSetId());
         TestStatisticsDto statisticsDto = TestStatisticsMapper.toDto(statisticsView);
         return ResponseEntity.ok(statisticsDto);
