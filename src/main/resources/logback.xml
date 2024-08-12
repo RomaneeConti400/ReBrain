@@ -1,8 +1,8 @@
 <configuration>
-
     <!-- Уровень корневого логгера (все логи будут наследовать этот уровень) -->
     <root level="INFO">
         <appender-ref ref="FILE" />
+        <appender-ref ref="CONSOLE" />
     </root>
 
     <!-- Определение файлового аппендера -->
@@ -13,23 +13,26 @@
         </encoder>
     </appender>
 
+    <!-- Определение консольного аппендера -->
+    <appender name="CONSOLE" class="ch.qos.logback.core.ConsoleAppender">
+        <encoder>
+            <pattern>%date %-5level - %msg%n</pattern>
+        </encoder>
+    </appender>
+
     <!-- Настройка логгеров для контроллеров и сервисов -->
     <logger name="com.example.rebrain.controllers" level="DEBUG" additivity="false">
         <appender-ref ref="FILE" />
+        <appender-ref ref="CONSOLE" />
     </logger>
 
     <logger name="com.example.rebrain.services" level="DEBUG" additivity="false">
         <appender-ref ref="FILE" />
+        <appender-ref ref="CONSOLE" />
     </logger>
 
     <!-- Отключение логирования от Spring и других библиотек -->
     <logger name="org.springframework" level="ERROR" />
     <logger name="org.hibernate" level="ERROR" />
     <logger name="com.zaxxer.hikari" level="ERROR" />
-
-    <!-- Уровень для корневого логгера оставляем INFO -->
-    <root level="INFO">
-        <appender-ref ref="FILE" />
-    </root>
-
 </configuration>
