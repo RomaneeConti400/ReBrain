@@ -1,6 +1,6 @@
 services:
   rebrain_app:
-    image: docker.io/serghit/rebrain-app:latest
+    image: docker.io/serghit/rebrain_app:latest
     ports:
       - "8081:8081"
     environment:
