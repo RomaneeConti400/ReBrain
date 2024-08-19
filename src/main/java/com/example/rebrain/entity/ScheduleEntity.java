@@ -20,6 +20,9 @@ public class ScheduleEntity {
     @Column(name = "id")
     private Long id;
 
+    @Column(name = "user_id")
+    private Long userId;
+
     @Column(name = "set_id")
     private Long title;
 
@@ -27,5 +30,5 @@ public class ScheduleEntity {
     private String cron;
 
     @Column(name = "start_date")
-    private LocalDate userId;
+    private LocalDate startDate;
 }
