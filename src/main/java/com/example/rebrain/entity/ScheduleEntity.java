@@ -8,7 +8,7 @@ import lombok.NoArgsConstructor;
 import java.time.LocalDate;
 
 @Entity
-@Table(name = "schedule")
+@Table(name = "schedules")
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
@@ -23,9 +23,9 @@ public class ScheduleEntity {
     @Column(name = "set_id")
     private Long title;
 
-    @Column(name = "weekday")
-    private Byte weekday;
+    @Column(name = "cron_expression")
+    private String cron;
 
-    @Column(name = "end_date")
+    @Column(name = "start_date")
     private LocalDate userId;
 }
