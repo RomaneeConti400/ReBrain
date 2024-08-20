@@ -59,7 +59,7 @@ public class TestService {
         Long userId = Long.valueOf(ThreadLocalUserIdHolder.get());
         testEntity.setUserId(userId);
         testEntity.setId(testAnswersDto.getTestId());
-        testEntity.setStartDate(testAnswersDto.getStartDate());
+        testEntity.setStartDate(startDate);
         testEntity.setEndDate(testAnswersDto.getEndDate());
         testEntity.setCompletionTime((int) Duration.between(startDate, endDate).getSeconds());
         testEntity.setCorrectAnswers(correctAnswers);

@@ -24,7 +24,7 @@ public class ScheduleEntity {
     private Long userId;
 
     @Column(name = "set_id")
-    private Long title;
+    private Long setId;
 
     @Column(name = "cron_expression")
     private String cron;
