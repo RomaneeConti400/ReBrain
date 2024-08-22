@@ -6,6 +6,7 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import java.time.LocalDate;
+import java.util.List;
 
 @Entity
 @Table(name = "schedules")
@@ -26,8 +27,10 @@ public class ScheduleEntity {
     @Column(name = "set_id")
     private Long setId;
 
-    @Column(name = "cron_expression")
-    private String cron;
+    @ElementCollection
+    @CollectionTable(name = "schedule_repeats", joinColumns = @JoinColumn(name = "schedule_id"))
+    @Column(name = "repeats")
+    private List<String> repeats;
 
     @Column(name = "start_date")
     private LocalDate startDate;

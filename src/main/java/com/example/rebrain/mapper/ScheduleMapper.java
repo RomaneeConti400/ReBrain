@@ -13,7 +13,7 @@ public class ScheduleMapper {
         scheduleEntity.setId(scheduleDto.getId());
         scheduleEntity.setUserId(scheduleDto.getUserId());
         scheduleEntity.setSetId(scheduleDto.getSetId());
-        scheduleEntity.setCron(scheduleDto.getCron());
+        scheduleEntity.setRepeats(scheduleDto.getRepeats());
         scheduleEntity.setStartDate(scheduleDto.getStartDate());
         return scheduleEntity;
     }
@@ -26,7 +26,7 @@ public class ScheduleMapper {
         scheduleDto.setId(scheduleEntity.getId());
         scheduleDto.setUserId(scheduleEntity.getUserId());
         scheduleDto.setSetId(scheduleEntity.getSetId());
-        scheduleDto.setCron(scheduleEntity.getCron());
+        scheduleDto.setRepeats(scheduleEntity.getRepeats());
         scheduleDto.setStartDate(scheduleEntity.getStartDate());
         return scheduleDto;
     }

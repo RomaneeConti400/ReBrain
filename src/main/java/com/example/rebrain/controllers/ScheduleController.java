@@ -2,10 +2,10 @@ package com.example.rebrain.controllers;
 
 import com.example.rebrain.dto.ScheduleDto;
 import com.example.rebrain.dto.SchedulePostDto;
+import com.example.rebrain.dto.ScheduleRequestDto;
 import com.example.rebrain.entity.ScheduleEntity;
 import com.example.rebrain.mapper.ScheduleMapper;
 import com.example.rebrain.services.ScheduleService;
-import com.example.rebrain.util.CronValidator;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -26,16 +26,12 @@ public class ScheduleController {
     }
 
     @PostMapping
-    public ResponseEntity<ScheduleDto> createSchedule(@RequestBody SchedulePostDto scheduleDto) {
-        String cron = scheduleDto.getCron();
-        if (!CronValidator.isValidCron(cron)) {
-            log.error("Invalid cron expression: {}", cron);
-            return ResponseEntity.badRequest().body(null);
-        }
-        log.debug("Creating schedule with data: {}", scheduleDto);
+    public ResponseEntity<ScheduleDto> createSchedule(@RequestBody ScheduleRequestDto requestDto) {
+        SchedulePostDto schedulePostDto = new SchedulePostDto(requestDto);
         ScheduleEntity scheduleEntity = new ScheduleEntity();
-        scheduleEntity.setSetId(scheduleDto.getSetId());
-        scheduleEntity.setCron(cron);
+        scheduleEntity.setSetId(schedulePostDto.getSetId());
+        scheduleEntity.setRepeats(schedulePostDto.getRepeats());
+        log.debug("Creating schedule with data: {}", scheduleEntity);
         ScheduleEntity createdSchedule = scheduleService.create(scheduleEntity);
         ScheduleDto createdToDto = ScheduleMapper.toDto(createdSchedule);
         URI location = URI.create("/schedules/" + createdToDto.getId());

@@ -36,8 +36,8 @@ public class ScheduleService {
 
     public ScheduleEntity update(Long id, ScheduleEntity updateEntity) throws ObjectNotFoundException {
         ScheduleEntity scheduleEntity = getEntityById(id);
-        if (updateEntity.getCron() != null) {
-            scheduleEntity.setCron(updateEntity.getCron());
+        if (updateEntity.getRepeats() != null) {
+            scheduleEntity.setRepeats(updateEntity.getRepeats());
         }
         return scheduleRepo.save(scheduleEntity);
     }
