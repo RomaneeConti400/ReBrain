@@ -23,11 +23,11 @@ public class TestController {
     }
 
     @PostMapping
-    public ResponseEntity<TestPostDto> createTest(@RequestBody TestPostDto testPostDto) {
+    public ResponseEntity<TestPostResultDto> createTest(@RequestBody TestPostDto testPostDto) {
         TestEntity testEntity = new TestEntity();
         testEntity.setSetId(testPostDto.getSetId());
         TestEntity createdTest = testService.create(testEntity);
-        TestPostDto createdTestDto = new TestPostDto(createdTest.getId(), createdTest.getSetId());
+        TestPostResultDto createdTestDto = new TestPostResultDto(createdTest.getId(), createdTest.getSetId());
         return ResponseEntity.ok(createdTestDto);
     }
 
