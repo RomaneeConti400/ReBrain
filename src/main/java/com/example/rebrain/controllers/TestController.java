@@ -52,12 +52,4 @@ public class TestController {
         log.debug("Test found: {}", test);
         return ResponseEntity.ok(test);
     }
-
-    @DeleteMapping("/{id}")
-    public ResponseEntity<Void> deleteTest(@PathVariable Long id) {
-        log.info("Deleting test with ID: {}", id);
-        testService.delete(id);
-        log.info("Test with ID: {} deleted", id);
-        return ResponseEntity.noContent().build();
-    }
 }
