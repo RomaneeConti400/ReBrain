@@ -7,6 +7,7 @@ import lombok.NoArgsConstructor;
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-public class TestPostDto {
+public class TestPostResultDto {
+    private Long testId;
     private Long setId;
 }
